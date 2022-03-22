@@ -1,4 +1,4 @@
-import { Render, Controller, Get } from '@nestjs/common';
+import { Query, Param, Render, Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -7,7 +7,9 @@ export class AppController {
 
     @Get()
     @Render('index')
-    root() {
+    root(@Query('login') login: string) {
+	console.log(login);
+	if (login === 'false' || typeof login == 'undefined') {
         return { title: "Аникеев Федор Николаевич", p1: "    <div id=\"upper_part\">\n" +
                 "    <article class=\"tv\">\n" +
                 "\n" +
@@ -137,9 +139,11 @@ export class AppController {
                 "            <section class=\"row5 column4\"><p>39,541 00</p></section>\n" +
                 "            <section class=\"row5 column5\"><p>25,683 00</p></section>\n" +
                 "    </div>"};
+    } else {
+	return {title: "You are logged in!", p1: "Logged in success"};
+    }
     }
 }
-
 @Controller('my_portfolio')
 export class AnotherController {
     @Get()
