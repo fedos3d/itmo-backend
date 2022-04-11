@@ -2,8 +2,103 @@ doctype html
 html
   include ./head.pug
   | !{AdditionalHead}
-  include ./header.pug
   body
-    | !{p1}
-  include ./footer.pug
+  include ./header.pug
+  main
+    #upper_part
+      article.tv
+        h2 О себе:
+        p
+          | Студент ИТМО, житель Петербурга. В интернетах известен как
+          strong  fedos3d
+          | .
+      section
+        h3 Что-то вроде успехов:
+        ul
+          li
+            b Призер олимпиады Я-Профи (Робототехника)
+          li
+            b Не отчислен из ИТМО (пока)
+          li
+            b Немного говорю по английски
+      section
+        h3 Какие-то рандомные факты:
+        ol
+          li Возраст: 21 год
+          li
+            ins Студент ИСа
+      section
+        h3 Пример кода:
+        p
+          code Scanner Scanner = new Scanner(System.in);
+    #middle_part
+      section#next_aside
+        h3
+          | ASCII
+          | !{' '}
+          span#mypic Art
+          |  goes
+          | !{' '}
+          del brr
+          |  here:
+        pre.
+          \_=/_/
+section
+  h3(align='center') Table for lab3 goes REEEEEEEEEEEEEEEEEEE:
+#table
+  section.row1.column1
+    h3 In Millions of USD(except for per share items)
+  section.row2.column1
+    h3 Revenue
+  section.row3.column1
+    h3 Other revenue, Total
+  section.row4.column1
+    h3 Total Revenue
+  section.row5.column1
+    h3 Cost of Revenue, Total
+  section.row1.column2
+    h3
+      | 52 weeks ending 2012-09-29
+  section.row1.column3
+    h3
+      | 52 weeks ending 2011-09-24
+  section.row1.column4
+    h3
+      | 52 weeks ending 2010-09-25
+  section.row1.column5
+    h3
+      | 52 weeks ending 2009-09-26
+  section.row2.column2
+    p 156,588 00
+  section.row2.column3
+    p 108,204 00
+  section.row2.column4
+    p 65,255 00
+  section.row2.column5
+    p 42,905 00
+  section.row3.column2
+    p -
+  section.row3.column3
+    p -
+  section.row3.column4
+    p -
+  section.row3.column5
+    p -
+  section.row4.column2
+    p 156,508 00
+  section.row4.column3
+    p 108,249 00
+  section.row4.column4
+    p 65,225 00
+  section.row4.column5
+    p 42,905 00
+  section.row5.column2
+    p 87,864 00
+  section.row5.column3
+    p 64,431 00
+  section.row5.column4
+    p 39,541 00
+  section.row5.column5
+    p 25,683 00
+include ./footer.pug
   | !{AdditionalFooter}
