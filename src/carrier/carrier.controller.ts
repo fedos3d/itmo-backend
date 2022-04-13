@@ -2,7 +2,7 @@ import { Get, Post, Delete, Param, Controller, NotImplementedException } from "@
 import { Request } from 'express';
 
 import {
-  ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags
+  ApiBearerAuth, ApiOperation, ApiResponse, ApiTags
 } from "@nestjs/swagger";
 import { CarrierService } from "./carrier.service";
 import { CarrierRO } from "./carrier.interface";

@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { UserRO } from "./user.interface";
 
 @Injectable()
 export class UserService {
-  getHello(): string {
-    return 'Hello World!';
+  getUser(id: number) {
+
   }
 }
