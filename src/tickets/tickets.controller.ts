@@ -5,7 +5,7 @@ import {
   ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags
 } from "@nestjs/swagger";
 import { TicketsService } from "./tickets.service";
-import { TicketsRO } from "./tickets.interface";
+import { Ticket } from "@prisma/client";
 
 @ApiBearerAuth()
 @ApiTags('tickets')
@@ -30,7 +30,7 @@ export class TicketsController {
     description: 'Ticket is not found.'
   })
   @Get(':id')
-  async getTicket(@Param('id') id: string): Promise<TicketsRO> {
+  async getTicket(@Param('id') id: string): Promise<Ticket> {
     // return await this.profileService.findProfile(userId, username);
     throw new NotImplementedException();
   }
@@ -49,7 +49,7 @@ export class TicketsController {
   @Post('/:from/:to/:company/:seller/:price/')
   async addTicket(@Param('from') from: string, @Param('to') to: string,
                   @Param('company') company: string, @Param('seller') seller: string,
-                  @Param('price') price: number): Promise<TicketsRO> {
+                  @Param('price') price: number): Promise<Ticket> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }
@@ -66,7 +66,7 @@ export class TicketsController {
     description: 'Forbidden.'
   })
   @Post('/:from')
-  async filterFromTicket(@Param('from') from: string): Promise<TicketsRO> {
+  async filterFromTicket(@Param('from') from: string): Promise<Ticket> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }

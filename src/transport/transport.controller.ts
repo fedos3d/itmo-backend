@@ -5,7 +5,7 @@ import {
   ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags
 } from "@nestjs/swagger";
 import { TransportService } from "./transport.service";
-import { TransportRO } from "./transport.interface";
+import { Transport } from "@prisma/client";
 
 @ApiBearerAuth()
 @ApiTags('transport')
@@ -30,7 +30,7 @@ export class TransportController {
     description: 'transport is not found.'
   })
   @Get(':id')
-  async getTransport(@Param('id') id: number): Promise<TransportRO> {
+  async getTransport(@Param('id') id: number): Promise<Transport> {
     // return await this.profileService.findProfile(userId, username);
     throw new NotImplementedException();
   }
@@ -47,7 +47,7 @@ export class TransportController {
     description: 'Forbidden.'
   })
   @Post(':name')
-  async addTransport(@Param('name') name: string): Promise<TransportRO> {
+  async addTransport(@Param('name') name: string): Promise<Transport> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }
@@ -64,7 +64,7 @@ export class TransportController {
     description: 'Forbidden.'
   })
   @Delete('/:id')
-  async deleteTransport(@Param('id') id: number): Promise<TransportRO> {
+  async deleteTransport(@Param('id') id: number): Promise<Transport> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }

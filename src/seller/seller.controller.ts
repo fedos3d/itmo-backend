@@ -1,11 +1,9 @@
 import { Get, Post, Delete, Param, Controller, NotImplementedException } from "@nestjs/common";
-import { Request } from 'express';
-
 import {
   ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags
 } from "@nestjs/swagger";
 import { SellerService } from "./seller.service";
-import { SellerRO } from "./seller.interface";
+import { Seller } from "@prisma/client";
 
 @ApiBearerAuth()
 @ApiTags('seller')
@@ -30,7 +28,7 @@ export class SellerController {
     description: 'seller is not found.'
   })
   @Get(':id')
-  async getSeller(@Param('id') id: string): Promise<SellerRO> {
+  async getSeller(@Param('id') id: string): Promise<Seller> {
     // return await this.profileService.findProfile(userId, username);
     throw new NotImplementedException();
   }
@@ -47,7 +45,7 @@ export class SellerController {
     description: 'Forbidden.'
   })
   @Post('/:name/:url')
-  async addSeller(@Param('name') name: string, @Param('url') url: string): Promise<SellerRO> {
+  async addSeller(@Param('name') name: string, @Param('url') url: string): Promise<Seller> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }
@@ -64,7 +62,7 @@ export class SellerController {
     description: 'Forbidden.'
   })
   @Delete('/:id')
-  async deleteSeller(@Param('id') name: number): Promise<SellerRO> {
+  async deleteSeller(@Param('id') name: number): Promise<Seller> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }

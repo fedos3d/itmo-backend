@@ -5,8 +5,7 @@ import {
   ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags
 } from "@nestjs/swagger";
 import { ReviewService } from "./review.service";
-import { ReviewRO } from "./review.interface";
-
+import { Review } from "@prisma/client";
 
 @ApiBearerAuth()
 @ApiTags('review')
@@ -31,7 +30,7 @@ export class ReviewController {
     description: 'Review is not found.'
   })
   @Get(':id')
-  async getReview(@Param('id') id: string): Promise<ReviewRO> {
+  async getReview(@Param('id') id: string): Promise<Review> {
     // return await this.profileService.findProfile(userId, username);
     throw new NotImplementedException();
   }
@@ -48,7 +47,9 @@ export class ReviewController {
     description: 'Forbidden.'
   })
   @Post('/:name/:content:/:user_id')
-  async addReview(@Param('name') name: string, @Param('content') content: string, @Param('user_id') user_id: number): Promise<ReviewRO> {
+  async addReview(@Param('name') name: string,
+                  @Param('content') content: string,
+                  @Param('user_id') user_id: number): Promise<Review> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }
@@ -65,7 +66,7 @@ export class ReviewController {
     description: 'Forbidden.'
   })
   @Delete('/:id')
-  async deleteReview(@Param('id') name: number): Promise<ReviewRO> {
+  async deleteReview(@Param('id') name: number): Promise<Review> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }

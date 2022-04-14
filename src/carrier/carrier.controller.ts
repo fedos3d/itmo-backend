@@ -5,7 +5,7 @@ import {
   ApiBearerAuth, ApiOperation, ApiResponse, ApiTags
 } from "@nestjs/swagger";
 import { CarrierService } from "./carrier.service";
-import { CarrierRO } from "./carrier.interface";
+import { Carrier } from "@prisma/client";
 
 
 @ApiBearerAuth()
@@ -31,7 +31,7 @@ export class CarrierController {
     description: 'carrier is not found.'
   })
   @Get(':id')
-  async getCarrier(@Param('id') id: string): Promise<CarrierRO> {
+  async getCarrier(@Param('id') id: string): Promise<Carrier> {
     // return await this.profileService.findProfile(userId, username);
     throw new NotImplementedException();
   }
@@ -48,7 +48,8 @@ export class CarrierController {
     description: 'Forbidden.'
   })
   @Post('/:name/:support_email')
-  async addSCarrier(@Param('name') name: string, @Param('support_email') support_email: string): Promise<CarrierRO> {
+  async addSCarrier(@Param('name') name: string,
+                    @Param('support_email') support_email: string): Promise<Carrier> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }
@@ -65,7 +66,7 @@ export class CarrierController {
     description: 'Forbidden.'
   })
   @Delete('/:id')
-  async deleteCarrier(@Param('id') name: number): Promise<CarrierRO> {
+  async deleteCarrier(@Param('id') name: number): Promise<Carrier> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }
