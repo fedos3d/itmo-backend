@@ -1,11 +1,14 @@
-import { Get, Post, Delete, Param, Controller, NotImplementedException } from "@nestjs/common";
+import { Get, Post, Delete, Param, Controller, NotImplementedException, Body, Patch } from "@nestjs/common";
 import { Request } from 'express';
 
 import {
   ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags
 } from "@nestjs/swagger";
 import { TicketsService } from "./tickets.service";
-import { Ticket } from "@prisma/client";
+import { Ticket } from "@prisma/client"
+import { CreateTicketDto } from "./dto/create-ticket.dto";
+import { FilterTicketDto } from "./dto/filter-ticket.dto";
+import { UpdateTicketDto } from "./dto/update-ticket.dto";
 
 @ApiBearerAuth()
 @ApiTags('tickets')
@@ -19,7 +22,7 @@ export class TicketsController {
   })
   @ApiResponse({
     status: 200,
-    description: 'ticket is found.'
+    description: 'Ticket is found.'
   })
   @ApiResponse({
     status: 403,
@@ -36,37 +39,58 @@ export class TicketsController {
   }
 
   @ApiOperation({
-    summary: "Add ticket"
+    summary: "Update ticket"
   })
   @ApiResponse({
     status: 200,
-    description: 'ticket is added.'
+    description: 'Ticket is found.'
   })
   @ApiResponse({
     status: 403,
     description: 'Forbidden.'
   })
-  @Post('/:from/:to/:company/:seller/:price/')
-  async addTicket(@Param('from') from: string, @Param('to') to: string,
-                  @Param('company') company: string, @Param('seller') seller: string,
-                  @Param('price') price: number): Promise<Ticket> {
-    // return await this.profileService.follow(email, username);
+  @ApiResponse({
+    status: 404,
+    description: 'Ticket is not found.'
+  })
+  @Patch('/updateTicket')
+  async updateTicket(@Body() ticket: UpdateTicketDto): Promise<Ticket> {
+    // return await this.profileService.findProfile(userId, username);
     throw new NotImplementedException();
   }
 
   @ApiOperation({
-    summary: "Filter tickets by from field"
+    summary: "Add ticket"
   })
   @ApiResponse({
     status: 200,
-    description: 'ticket is added.'
+    description: 'Ticket is added.'
   })
   @ApiResponse({
     status: 403,
     description: 'Forbidden.'
   })
-  @Post('/:from')
-  async filterFromTicket(@Param('from') from: string): Promise<Ticket> {
+  @Post('addTicket')
+  async addTicket(@Body() Ticket: CreateTicketDto): Promise<Ticket> {
+    // return await this.profileService.follow(email, username);
+    throw new NotImplementedException();
+  }
+
+
+
+  @ApiOperation({
+    summary: "Filter ticket using filter"
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Tickets found'
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden.'
+  })
+  @Post('filterTickets')
+  async filterTicket(@Body() Filter: FilterTicketDto): Promise<Ticket[]> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }

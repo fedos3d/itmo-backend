@@ -1,11 +1,13 @@
-import { Get, Post, Delete, Param, Controller, NotImplementedException } from "@nestjs/common";
+import { Get, Post, Delete, Param, Controller, NotImplementedException, Body, Patch } from "@nestjs/common";
 import { Request } from 'express';
 
 import {
-  ApiBearerAuth, ApiOperation, ApiResponse, ApiTags
+  ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags
 } from "@nestjs/swagger";
 import { CarrierService } from "./carrier.service";
-import { Carrier } from "@prisma/client";
+import { Carrier } from "@prisma/client"
+import { CreateCarrierDto } from "./dto/create-carrier.dto";
+import { UpdateCarrierDto } from "./dto/update-carrier.dto";
 
 
 @ApiBearerAuth()
@@ -28,10 +30,44 @@ export class CarrierController {
   })
   @ApiResponse({
     status: 404,
-    description: 'carrier is not found.'
+    description: 'Carrier is not found.'
   })
   @Get(':id')
   async getCarrier(@Param('id') id: string): Promise<Carrier> {
+    // return await this.profileService.findProfile(userId, username);
+    throw new NotImplementedException();
+  }
+
+  @ApiOperation({
+    summary: "Get all Carriers"
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'carrier is found.'
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden.'
+  })
+  @Get('/getAllCarriers')
+  async getAllCarriers(): Promise<Carrier[]> {
+    // return await this.profileService.findProfile(userId, username);
+    throw new NotImplementedException();
+  }
+
+  @ApiOperation({
+    summary: "Update Carrier"
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Carrier is found.'
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden.'
+  })
+  @Patch('/updateCarrier')
+  async updateCarrier(@Body() carrier: UpdateCarrierDto): Promise<Carrier[]> {
     // return await this.profileService.findProfile(userId, username);
     throw new NotImplementedException();
   }
@@ -41,15 +77,14 @@ export class CarrierController {
   })
   @ApiResponse({
     status: 200,
-    description: 'carrier is added.'
+    description: 'Carrier is added.'
   })
   @ApiResponse({
     status: 403,
     description: 'Forbidden.'
   })
-  @Post('/:name/:support_email')
-  async addSCarrier(@Param('name') name: string,
-                    @Param('support_email') support_email: string): Promise<Carrier> {
+  @Post('addCarrier')
+  async addSCarrier(@Body() Carrier: CreateCarrierDto): Promise<Carrier> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }
@@ -59,7 +94,7 @@ export class CarrierController {
   })
   @ApiResponse({
     status: 200,
-    description: 'carrier is deleted.'
+    description: 'Carrier is deleted.'
   })
   @ApiResponse({
     status: 403,

@@ -1,11 +1,15 @@
-import { Get, Post, Delete, Param, Controller, NotImplementedException } from "@nestjs/common";
-import { Request } from 'express';
+import { Get, Post, Delete, Param, Controller, NotImplementedException, Body } from "@nestjs/common";
+
 
 import {
-  ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags
+  ApiBearerAuth, ApiOperation, ApiResponse, ApiTags
 } from "@nestjs/swagger";
 import { ReviewService } from "./review.service";
-import { Review } from "@prisma/client";
+import { Review } from "@prisma/client"
+import { CreateReviewDto } from "./dto/create-review.dto";
+import { FilterReviewDto } from "./dto/filter-review.dto";
+
+
 
 @ApiBearerAuth()
 @ApiTags('review')
@@ -46,10 +50,8 @@ export class ReviewController {
     status: 403,
     description: 'Forbidden.'
   })
-  @Post('/:name/:content:/:user_id')
-  async addReview(@Param('name') name: string,
-                  @Param('content') content: string,
-                  @Param('user_id') user_id: number): Promise<Review> {
+  @Post('addReview')
+  async addReview(@Body() Review: CreateReviewDto): Promise<Review> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }
@@ -68,6 +70,23 @@ export class ReviewController {
   @Delete('/:id')
   async deleteReview(@Param('id') name: number): Promise<Review> {
     // return await this.profileService.follow(email, username);
+    throw new NotImplementedException();
+  }
+
+  @ApiOperation({
+    summary: "Filter reviews"
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Review is found.'
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Forbidden.'
+  })
+  @Get('/filterReviews')
+  async filterReviews(@Body() filterReview: FilterReviewDto): Promise<Review[]> {
+    // return await this.profileService.findProfile(userId, username);
     throw new NotImplementedException();
   }
 }
