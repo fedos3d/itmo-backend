@@ -14,28 +14,28 @@ model User {
   id      Int      @id @default(autoincrement())
   email   String   @unique
   name    String?
-  tickets Ticket[]
-  Review  Review[]
+  ticket Ticket[]
+  review  Review[]
 }
 
 model Transport {
   id     Int      @id @default(autoincrement())
   name   String
-  Ticket Ticket[]
+  ticket Ticket[]
 }
 
 model Carrier {
   id            Int      @id @default(autoincrement())
   name          String
-  support_email String
-  Ticket        Ticket[]
+  supportEmail String
+  ticket        Ticket[]
 }
 
 model Seller {
   id     Int      @id @default(autoincrement())
   name   String
   url    String
-  Ticket Ticket[]
+  ticket Ticket[]
 }
 
 model Review {
@@ -56,10 +56,10 @@ model Ticket {
   seller      Seller    @relation(fields: [sellerId], references: [id])
   transport   Transport @relation(fields: [transportId], references: [id])
   price       Float
-  User        User?     @relation(fields: [userId], references: [id])
+  user        User?     @relation(fields: [userId], references: [id])
   userId      Int?
   transportId Int
-  Review      Review[]
+  review      Review[]
   carrierId   Int
   sellerId    Int
 }
