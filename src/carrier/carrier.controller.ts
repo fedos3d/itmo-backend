@@ -56,11 +56,11 @@ export class CarrierController {
   }
 
   @ApiOperation({
-    summary: "Get all Carriers"
+    summary: "Update Carrier"
   })
   @ApiResponse({
     status: 200,
-    description: 'carrier is found.'
+    description: 'Carrier is found.'
   })
   @ApiResponse({
     status: 403,

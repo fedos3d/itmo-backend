@@ -6,5 +6,6 @@ export class Seller {
   id: number ;
 name: string ;
 url: string ;
-Ticket?: Ticket[] ;
+ticket?: Ticket[] ;
+rating: number ;
 }

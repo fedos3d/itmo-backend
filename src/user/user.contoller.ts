@@ -22,7 +22,7 @@ export class UserController {
   @ApiParam({ name: 'id', type: 'number' })
   @ApiResponse({
     status: 200,
-    description: 'user is found.'
+    description: 'User is found.'
   })
   @ApiResponse({
     status: 403,
@@ -35,7 +35,7 @@ export class UserController {
   }
 
   @ApiOperation({
-    summary: "Get user by it's id"
+    summary: "Add user"
   })
   @ApiResponse({
     status: 200,
@@ -52,7 +52,7 @@ export class UserController {
   }
 
   @ApiOperation({
-    summary: "Get user by it's name"
+    summary: "Get user by it's email"
   })
   @ApiResponse({
     status: 200,
@@ -87,7 +87,7 @@ export class UserController {
 
 
   @ApiOperation({
-    summary: "Get user by it's name"
+    summary: "Get user by it's creationTime"
   })
   @ApiResponse({
     status: 200,
@@ -104,7 +104,7 @@ export class UserController {
   }
 
   @ApiOperation({
-    summary: "Get user by it's name"
+    summary: "Update user"
   })
   @ApiResponse({
     status: 200,
@@ -140,7 +140,7 @@ export class UserController {
   }
 
   @ApiOperation({
-    summary: "Get user by it's name"
+    summary: "Get all tickets of a user"
   })
   @ApiResponse({
     status: 200,
@@ -157,7 +157,7 @@ export class UserController {
   }
 
   @ApiOperation({
-    summary: "Get user by it's name"
+    summary: "Get all Reviews of a user"
   })
   @ApiResponse({
     status: 200,

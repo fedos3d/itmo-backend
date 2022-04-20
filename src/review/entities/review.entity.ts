@@ -11,4 +11,6 @@ ticket?: Ticket ;
 user?: User ;
 ticketId: number ;
 userId: number ;
+creationDate: Date ;
+rating: number ;
 }

@@ -14,10 +14,11 @@ company?: Carrier ;
 seller?: Seller ;
 transport?: Transport ;
 price: number ;
-User?: User  | null;
+user?: User  | null;
 userId: number  | null;
 transportId: number ;
-Review?: Review[] ;
+review?: Review[] ;
 carrierId: number ;
 sellerId: number ;
+creation: Date ;
 }
