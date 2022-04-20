@@ -1,5 +1,14 @@
-import { Get, Post, Delete, Param, Controller, NotImplementedException, Body, Patch } from "@nestjs/common";
-import { Request } from 'express';
+import {
+  Get,
+  Post,
+  Delete,
+  Param,
+  Controller,
+  NotImplementedException,
+  Body,
+  Patch,
+  ParseIntPipe
+} from "@nestjs/common";
 
 import {
   ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags
@@ -7,8 +16,6 @@ import {
 import { CarrierService } from "./carrier.service";
 import { Carrier } from "@prisma/client"
 import { CreateCarrierDto } from "./dto/create-carrier.dto";
-import { UpdateCarrierDto } from "./dto/update-carrier.dto";
-
 
 @ApiBearerAuth()
 @ApiTags('carrier')
@@ -33,8 +40,8 @@ export class CarrierController {
     description: 'Carrier is not found.'
   })
   @Get(':id')
-  async getCarrier(@Param('id') id: string): Promise<Carrier> {
-    return this.carrierService.getCarrier({id: Number(id)});
+  async getCarrier(@Param('id', ParseIntPipe) id: number): Promise<Carrier> {
+    return this.carrierService.getCarrier({id: id});
   }
 
   @ApiOperation({
@@ -48,28 +55,28 @@ export class CarrierController {
     status: 403,
     description: 'Forbidden.'
   })
-  @Get('/getAllCarriers')
+  @Get('/getCarriers/all')
   async getAllCarriers(): Promise<Carrier[]> {
     return this.carrierService.getAllCarriers();
-    // throw new NotImplementedException();
   }
 
-  @ApiOperation({
-    summary: "Update Carrier"
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Carrier is found.'
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @Patch('/updateCarrier')
-  async updateCarrier(@Body() carrier: UpdateCarrierDto): Promise<Carrier[]> {
-    // return this.carrierService.updateCarrier(UpdateCarrierDto);
-    throw new NotImplementedException();
-  }
+  // @ApiOperation({
+  //   summary: "Update Carrier"
+  // })
+  // @ApiResponse({
+  //   status: 200,
+  //   description: 'Carrier is found.'
+  // })
+  // @ApiResponse({
+  //   status: 403,
+  //   description: 'Forbidden.'
+  // })
+  // @Patch('/updateCarrier/:id')
+  // async updateCarrier(@Param('id', ParseIntPipe) id: number,
+  //                     @Body() carrier: UpdateCarrierDto): Promise<Carrier[]> {
+  //   return this.carrierService.updateCarrier(Number(id), UpdateCarrierDto);
+  //   // throw new NotImplementedException();
+  // }
 
   @ApiOperation({
     summary: "Add carrier"
@@ -85,7 +92,6 @@ export class CarrierController {
   @Post('addCarrier')
   async addSCarrier(@Body() Carrier: CreateCarrierDto): Promise<Carrier> {
     return this.carrierService.createCarrier( Carrier);
-    // throw new NotImplementedException();
   }
 
   @ApiOperation({
@@ -100,8 +106,7 @@ export class CarrierController {
     description: 'Forbidden.'
   })
   @Delete('/:id')
-  async deleteCarrier(@Param('id') id: number): Promise<Carrier> {
-    return this.carrierService.deleteCarrier({id: id});
-    // throw new NotImplementedException();
+  async deleteCarrier(@Param('id', ParseIntPipe) id: number): Promise<Carrier> {
+    return this.carrierService.deleteCarrier({id: Number(id)});
   }
 }

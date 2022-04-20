@@ -1,4 +1,4 @@
-import { Get, Post, Delete, Param, Controller, NotImplementedException, Body } from "@nestjs/common";
+import { Get, Post, Delete, Param, Controller, NotImplementedException, Body, ParseIntPipe } from "@nestjs/common";
 
 
 import {
@@ -34,9 +34,9 @@ export class ReviewController {
     description: 'Review is not found.'
   })
   @Get(':id')
-  async getReview(@Param('id') id: string): Promise<Review> {
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException();
+  async getReview(@Param('id', ParseIntPipe) id: string): Promise<Review> {
+    return this.reviewService.getReview({id: id});
+    // throw new NotImplementedException();
   }
 
   @ApiOperation({
@@ -52,7 +52,7 @@ export class ReviewController {
   })
   @Post('addReview')
   async addReview(@Body() Review: CreateReviewDto): Promise<Review> {
-    // return await this.profileService.follow(email, username);
+    // return this.reviewService.addReview(Review);
     throw new NotImplementedException();
   }
 
