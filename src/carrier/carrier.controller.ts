@@ -34,8 +34,7 @@ export class CarrierController {
   })
   @Get(':id')
   async getCarrier(@Param('id') id: string): Promise<Carrier> {
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException();
+    return this.carrierService.getCarrier({id: Number(id)});
   }
 
   @ApiOperation({
@@ -51,8 +50,8 @@ export class CarrierController {
   })
   @Get('/getAllCarriers')
   async getAllCarriers(): Promise<Carrier[]> {
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException();
+    return this.carrierService.getAllCarriers();
+    // throw new NotImplementedException();
   }
 
   @ApiOperation({
@@ -68,7 +67,7 @@ export class CarrierController {
   })
   @Patch('/updateCarrier')
   async updateCarrier(@Body() carrier: UpdateCarrierDto): Promise<Carrier[]> {
-    // return await this.profileService.findProfile(userId, username);
+    // return this.carrierService.updateCarrier(UpdateCarrierDto);
     throw new NotImplementedException();
   }
 
@@ -85,8 +84,8 @@ export class CarrierController {
   })
   @Post('addCarrier')
   async addSCarrier(@Body() Carrier: CreateCarrierDto): Promise<Carrier> {
-    // return await this.profileService.follow(email, username);
-    throw new NotImplementedException();
+    return this.carrierService.createCarrier( Carrier);
+    // throw new NotImplementedException();
   }
 
   @ApiOperation({
@@ -101,8 +100,8 @@ export class CarrierController {
     description: 'Forbidden.'
   })
   @Delete('/:id')
-  async deleteCarrier(@Param('id') name: number): Promise<Carrier> {
-    // return await this.profileService.follow(email, username);
-    throw new NotImplementedException();
+  async deleteCarrier(@Param('id') id: number): Promise<Carrier> {
+    return this.carrierService.deleteCarrier({id: id});
+    // throw new NotImplementedException();
   }
 }
