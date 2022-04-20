@@ -11,7 +11,7 @@ export interface Response<T> {
 }
 
 @Injectable()
-export class LoggingInterceptor<T> implements NestInterceptor<T, Response<T>> {
+export class BackendResponseTimeInterceptor<T> implements NestInterceptor<T, Response<T>> {
   intercept(
     context: ExecutionContext,
     next: CallHandler,

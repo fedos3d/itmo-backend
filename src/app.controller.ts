@@ -1,8 +1,8 @@
 import { Render, Controller, Get, UseInterceptors} from '@nestjs/common';
 import { AppService } from './app.service';
-import { LoggingInterceptor } from './interceptor';
+import { BackendResponseTimeInterceptor } from './interceptor';
 
-@UseInterceptors(LoggingInterceptor)
+@UseInterceptors(BackendResponseTimeInterceptor)
 @Controller()
 @Controller()
 export class AppController {
