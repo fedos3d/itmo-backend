@@ -144,7 +144,7 @@ export class SellerController {
     description: 'Forbidden.'
   })
   @Delete('/:id')
-  async deleteSeller(@Param('id') name: number): Promise<SellerRO> {
+  async deleteSeller(@Param('id') name: number): Promise<Seller> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }

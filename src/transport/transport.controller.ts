@@ -103,7 +103,7 @@ export class TransportController {
     description: 'Forbidden.'
   })
   @Delete('/:id')
-  async deleteTransport(@Param('id') id: number): Promise<TransportRO> {
+  async deleteTransport(@Param('id') id: number): Promise<Transport> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }
