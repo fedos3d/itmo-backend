@@ -82,5 +82,9 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+
+  "scripts": {
+    "prepare": "npx prisma generate"
   }
 }
