@@ -8,9 +8,11 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "prepare": "npx prisma generate",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -82,9 +84,5 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  },
-
-  "scripts": {
-    "prepare": "npx prisma generate"
   }
 }
