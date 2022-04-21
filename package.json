@@ -8,10 +8,9 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-
+    "prepare": "npx prisma generate",
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "prepare": "npx prisma generate",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
