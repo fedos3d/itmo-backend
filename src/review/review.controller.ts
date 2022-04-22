@@ -34,7 +34,7 @@ export class ReviewController {
     description: 'Review is not found.'
   })
   @Get(':id')
-  async getReview(@Param('id', ParseIntPipe) id: string): Promise<Review> {
+  async getReview(@Param('id', ParseIntPipe) id: number): Promise<Review> {
     return this.reviewService.getReview({id: id});
     // throw new NotImplementedException();
   }
