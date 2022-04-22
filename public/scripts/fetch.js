@@ -8,10 +8,9 @@ function filter (i) {
     }
 }
 const fetchAPI = () => {
-    let loader = '<div id="preloader">\n' +
-        '  <div id="loader"></div>\n' +
-        '</div>';
-    document.getElementById('results').innerHTML = loader;
+    document.getElementById('results').innerHTML = '<div id="preloader">\n' +
+      '  <div id="loader"></div>\n' +
+      '</div>';
     fetch('https://jsonplaceholder.typicode.com/comments')
         .then((response) => response.json())
         .then(json => {
