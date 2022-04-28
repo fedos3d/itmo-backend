@@ -8,11 +8,12 @@ import { SellerModule } from './seller/seller.module';
 import { TransportModule } from './transport/transport.module';
 import { CarrierModule } from './carrier/carrier.module';
 import { ReviewModule } from './review/review.module';
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
   controllers: [AppController],
   providers: [AppService, PrismaService],
-  imports: [TicketsModule, UserModule, SellerModule, TransportModule, CarrierModule, ReviewModule],
+  imports: [TicketsModule, UserModule, SellerModule, TransportModule, CarrierModule, ReviewModule, AuthModule],
 })
 export class AppModule {}
 

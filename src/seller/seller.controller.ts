@@ -1,14 +1,15 @@
-import { Get, Post, Delete, Param, Controller, NotImplementedException, Body, Patch } from "@nestjs/common";
-import { Request } from 'express';
+import { Get, Post, Delete, Param, Controller,  UseGuards, NotImplementedException, Body, Patch } from "@nestjs/common";
 
 import {
-  ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags
+  ApiBearerAuth, ApiOperation, ApiResponse, ApiTags
 } from "@nestjs/swagger";
 import { SellerService } from "./seller.service";
 import { Seller } from "@prisma/client"
 import { CreateSellerDto } from "./dto/create-seller.dto";
 import { FilterSellerDto } from "./dto/filter-seller.dto";
 import { UpdateSellerDto } from "./dto/update-seller.dto";
+import {AuthGuard} from "../auth/auth.guard";
+
 
 @ApiBearerAuth()
 @ApiTags('seller')
@@ -93,6 +94,7 @@ export class SellerController {
     description: 'Forbidden.'
   })
   @Get('/getAllSellers')
+  @UseGuards(AuthGuard)
   async getAllSellers(): Promise<Seller[]> {
     // return await this.profileService.findProfile(userId, username);
     throw new NotImplementedException();
