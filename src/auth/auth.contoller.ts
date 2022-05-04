@@ -1,54 +1,69 @@
-import { Body, Controller, Get, Post, Redirect, Render, Res, UseFilters, UseGuards } from "@nestjs/common";
 import {
-  ApiBadRequestResponse,
-  ApiCookieAuth,
+  ApiBearerAuth,
   ApiOperation,
   ApiResponse,
   ApiTags,
-  ApiUnauthorizedResponse,
 } from "@nestjs/swagger";
-import { CreateUserDto } from "../user/dto/create-user.dto";
+import { Body, Controller, Get, Post, Res } from "@nestjs/common";
 import { AuthService } from "./auth.service";
+import { AuthResponse } from "./auth.response";
 import { Response } from "express";
-import { AuthGuard } from "./auth.guard";
-import {BadRequestFilter} from "./bad-req.filter";
 import { LoginUserDto } from "../user/dto/login-user.dto";
+import { CreateUserDto } from "../user/dto/create-user.dto";
 
-@ApiTags("Типа авторизация")
+@ApiBearerAuth()
+@ApiTags("auth")
 @Controller("auth")
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
-  @ApiOperation({ summary: "Log in system" })
-  @ApiResponse({ status: 200, description: "Returns user token" })
-  @ApiBadRequestResponse({ description: "Invalid user credentials" })
-  @ApiResponse({
-    status: 401,
-    description: "Username or password not correct",
+  @ApiOperation({
+    summary: "Login by username and password",
   })
-  @UseFilters(new BadRequestFilter("login"))
-  @Post("/login")
-  async login(@Body() credentials: LoginUserDto, @Res({ passthrough: true }) response: Response) {
-    await this.authService.login(credentials, response);
+  @ApiResponse({
+    status: 200,
+    description: "Successful login",
+  })
+  @ApiResponse({
+    status: 400,
+    description: "Wrong password",
+  })
+  @ApiResponse({
+    status: 403,
+    description: "Forbidden",
+  })
+  @ApiResponse({
+    status: 404,
+    description: "User not found",
+  })
+  @Get("/login")
+  async login(
+    @Body() dto: LoginUserDto,
+    @Res({ passthrough: true }) response: Response
+  ): Promise<AuthResponse> {
+    return this.authService.login(dto, response);
   }
 
-  @ApiOperation({ summary: "Register in system" })
-  @ApiResponse({ status: 201, description: "Returns user token" })
-  @ApiBadRequestResponse({ description: "Invalid user credentials" })
-  @ApiUnauthorizedResponse({
-    description: "User with this username already exists",
+  @ApiOperation({
+    summary: "Register new user",
+  })
+  @ApiResponse({
+    status: 200,
+    description: "Successful register",
+  })
+  @ApiResponse({
+    status: 400,
+    description: "user already exists",
+  })
+  @ApiResponse({
+    status: 403,
+    description: "Forbidden",
   })
   @Post("/register")
-  async register(@Body() user: CreateUserDto, @Res({ passthrough: true }) response: Response) {
-    return await this.authService.register(user, response);
-  }
-
-  @UseGuards(AuthGuard)
-  @ApiCookieAuth()
-  @ApiOperation({ summary: "logout" })
-  @Redirect("login")
-  @Get("logout")
-  async logout(@Res({ passthrough: true }) response: Response) {
-    this.authService.logout(response);
+  async register(
+    @Body() dto: CreateUserDto,
+    @Res({ passthrough: true }) response: Response
+  ): Promise<AuthResponse> {
+    return this.authService.register(dto, response);
   }
 }
