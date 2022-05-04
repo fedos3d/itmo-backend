@@ -1,12 +1,6 @@
-
-
-
-
-
-
 export class UpdateUserDto {
   email?: string;
-password?: string;
-name?: string;
-creationDate?: Date;
+  password?: string;
+  name?: string;
+  creationDate?: Date;
 }

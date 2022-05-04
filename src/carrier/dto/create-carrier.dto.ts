@@ -1,11 +1,5 @@
-
-
-
-
-
-
 export class CreateCarrierDto {
   name: string;
-supportEmail: string;
-rating: number;
+  supportEmail: string;
+  rating: number;
 }
