@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -15,11 +14,10 @@ datasource db {
 model User {
   id      Int      @id @default(autoincrement())
   email   String   @unique
+  ticket Ticket[]
   password String
   name    String?  @unique
-  tickets Ticket[]
-  Review  Review[]
-  creationDate DateTime
+  creationDate DateTime @default(dbgenerated("NOW()"))
 }
 
 model Transport {
@@ -50,10 +48,9 @@ model Review {
   title    String
   content  String
   ticket   Ticket @relation(fields: [ticketId], references: [id])
-  user     User   @relation(fields: [userId], references: [id])
   ticketId Int
   userId   Int
-  creationDate DateTime
+  creationDate DateTime @default(dbgenerated("NOW()"))
   rating Float
 }
 
@@ -71,5 +68,5 @@ model Ticket {
   review      Review[]
   carrierId   Int
   sellerId    Int
-  creation DateTime
+  creationDate DateTime @default(dbgenerated("NOW()"))
 }

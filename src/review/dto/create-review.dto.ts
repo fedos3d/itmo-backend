@@ -1,12 +1,15 @@
-
-
-
-
-
+import { ApiProperty } from '@nestjs/swagger'
 
 export class CreateReviewDto {
-  title: string;
-content: string;
-creationDate: Date;
-rating: number;
+  @ApiProperty()
+    title: string
+
+  @ApiProperty()
+    content: string
+
+  @ApiProperty()
+    creationDate: Date
+
+  @ApiProperty()
+    rating: number
 }

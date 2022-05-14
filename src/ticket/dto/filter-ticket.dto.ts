@@ -1,9 +1,24 @@
+import { ApiProperty } from '@nestjs/swagger'
+
 export class FilterTicketDto {
-  from: string;
-  to: string;
-  company: string;
-  seller: string;
-  transport: string;
-  priceStart: number;
-  priceEnd: number;
+  @ApiProperty()
+    from: string
+
+  @ApiProperty()
+    to: string
+
+  @ApiProperty()
+    company: string
+
+  @ApiProperty()
+    seller: string
+
+  @ApiProperty()
+    transport: string
+
+  @ApiProperty()
+    priceStart: number
+
+  @ApiProperty()
+    priceEnd: number
 }

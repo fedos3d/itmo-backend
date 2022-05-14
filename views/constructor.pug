@@ -1,7 +1,7 @@
 doctype html
 html
     include ./head.pug
-    | !{AdditionalHead}
+    | <link href="constructor.css" rel="stylesheet">
     include ./header.pug
     body
         main
@@ -37,4 +37,4 @@ html
                 input(type='submit' name='submit' value='Draw')
             #results(style='overflow-x:auto;')
     include ./footer.pug
-    | !{AdditionalFooter}
+    | <script src="scripts/constructor.js"></script>
