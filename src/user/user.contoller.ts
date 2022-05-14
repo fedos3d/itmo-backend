@@ -17,6 +17,7 @@ import {
   ApiBearerAuth,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
@@ -34,6 +35,7 @@ export class UserController {
   @ApiOperation({
     summary: "Get user by it's id",
   })
+  @ApiNotFoundResponse({ description: "User not found" })
   @ApiParam({ name: "id", type: "number" })
   @ApiForbiddenResponse({ description: "Forbidden." })
   @ApiBadRequestResponse({ description: "Invalid request." })
@@ -75,6 +77,7 @@ export class UserController {
   @ApiOperation({
     summary: "Update user",
   })
+  @ApiNotFoundResponse({ description: "User not found" })
   @ApiForbiddenResponse({ description: "Forbidden." })
   @ApiBadRequestResponse({ description: "Invalid request." })
   @ApiOkResponse({ description: "Successful request." })
@@ -90,6 +93,7 @@ export class UserController {
   @ApiOperation({
     summary: "Delete user by it's id",
   })
+  @ApiNotFoundResponse({ description: "User not found" })
   @ApiForbiddenResponse({ description: "Forbidden." })
   @ApiBadRequestResponse({ description: "Invalid request." })
   @ApiOkResponse({ description: "Successful request." })
@@ -102,6 +106,7 @@ export class UserController {
   @ApiOperation({
     summary: "Get all tickets of a user",
   })
+  @ApiNotFoundResponse({ description: "User not found" })
   @ApiForbiddenResponse({ description: "Forbidden." })
   @ApiBadRequestResponse({ description: "Invalid request." })
   @ApiOkResponse({ description: "Successful request." })
@@ -116,6 +121,7 @@ export class UserController {
   @ApiOperation({
     summary: "Get all Reviews of a user",
   })
+  @ApiNotFoundResponse({ description: "User not found" })
   @ApiForbiddenResponse({ description: "Forbidden." })
   @ApiBadRequestResponse({ description: "Invalid request." })
   @ApiOkResponse({ description: "Successful request." })
