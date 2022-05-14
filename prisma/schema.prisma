@@ -15,7 +15,6 @@ model User {
   email   String   @unique
   name    String?
   ticket Ticket[]
-  review  Review[]
 }
 
 model Transport {
@@ -43,7 +42,6 @@ model Review {
   title    String
   content  String
   ticket   Ticket @relation(fields: [ticketId], references: [id])
-  user     User   @relation(fields: [userId], references: [id])
   ticketId Int
   userId   Int
 }
