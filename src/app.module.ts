@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AppController} from './app.controller';
+import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaService } from "./prisma.service";
 import { TicketsModule } from './ticket/tickets.module';
@@ -15,4 +15,3 @@ import { ReviewModule } from './review/review.module';
   imports: [TicketsModule, UserModule, SellerModule, TransportModule, CarrierModule, ReviewModule],
 })
 export class AppModule {}
-

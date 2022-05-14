@@ -2,9 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-generator-nestjs-dto"
-  output = "../src"
-  outputToNestJsResourceStructure = "true"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -15,10 +13,9 @@ datasource db {
 model User {
   id      Int      @id @default(autoincrement())
   email   String   @unique
+  ticket Ticket[]
   password String
   name    String?  @unique
-  tickets Ticket[]
-  Review  Review[]
   creationDate DateTime
 }
 
@@ -50,7 +47,6 @@ model Review {
   title    String
   content  String
   ticket   Ticket @relation(fields: [ticketId], references: [id])
-  user     User   @relation(fields: [userId], references: [id])
   ticketId Int
   userId   Int
   creationDate DateTime

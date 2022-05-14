@@ -1,5 +1,5 @@
 Аникеев Федор М33031 ITMO <br>
-![db_scheme](./newbd.png "Db scheme") <br>
+![db_scheme](./new_diagram.png "Db scheme") <br>
 
 
 ### DB info:
