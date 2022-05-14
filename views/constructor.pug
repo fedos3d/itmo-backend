@@ -1,0 +1,42 @@
+doctype html
+html
+    include ./head.pug
+    | !{AdditionalHead}
+    | <link href="constructor.css" rel="stylesheet">
+    include ./header.pug
+    body
+        main
+            // Reference for this form is: https://codepen.io/stack-findover/pen/OJRvPQv
+            form.input_form(onsubmit='formsubmit();return false')
+                #dayamount
+                    label
+                        | Кол-во дней:
+                        input#amount_of_days(type='number' min='1' max='6' value='1')
+                #columns_to_show
+                    label
+                        input(name='column' type='checkbox' value='time')
+                        | Время занятий
+                    label
+                        input(name='column' type='checkbox' value='week')
+                        | Неделя
+                    label
+                        input(name='column' type='checkbox' value='classroom')
+                        | Аудитория
+                    input(type='checkbox' name='column' style='opacity:0' checked='checked' value='name')
+                    label
+                        input(name='column' type='checkbox' value='lessontype')
+                        | Вид занятий
+                    label
+                        input(name='column' type='checkbox' value='format')
+                        | Формат занятий
+                    label
+                        input(name='column' type='checkbox' value='tutor')
+                        | Преподаватель
+                    label
+                        input(name='column' type='checkbox' value='group')
+                        | Группа
+                input(type='submit' name='submit' value='Draw')
+            #results(style='overflow-x:auto;')
+    include ./footer.pug
+    | !{AdditionalFooter}
+    | <script src="scripts/constructor.js"></script>
