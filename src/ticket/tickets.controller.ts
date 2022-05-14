@@ -17,6 +17,7 @@ import {
   ApiBearerAuth,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
@@ -37,6 +38,7 @@ export class TicketsController {
   @ApiOperation({
     summary: "Get ticket by it's id",
   })
+  @ApiNotFoundResponse({ description: "Not found" })
   @ApiForbiddenResponse({ description: "Forbidden." })
   @ApiBadRequestResponse({ description: "Invalid request." })
   @ApiOkResponse({ description: "Successful request." })
@@ -48,6 +50,7 @@ export class TicketsController {
   @ApiOperation({
     summary: "Update ticket",
   })
+  @ApiNotFoundResponse({ description: "Not found" })
   @ApiForbiddenResponse({ description: "Forbidden." })
   @ApiBadRequestResponse({ description: "Invalid request." })
   @ApiOkResponse({ description: "Successful request." })

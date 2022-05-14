@@ -14,6 +14,7 @@ import {
   ApiBearerAuth,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiResponse,
@@ -32,6 +33,7 @@ export class ReviewController {
   @ApiOperation({
     summary: "Get Review by it's id",
   })
+  @ApiNotFoundResponse({ description: "Not found" })
   @ApiForbiddenResponse({ description: "Forbidden." })
   @ApiBadRequestResponse({ description: "Invalid request." })
   @ApiOkResponse({ description: "Successful request." })
@@ -58,6 +60,7 @@ export class ReviewController {
   @ApiOperation({
     summary: "Delete Review by id",
   })
+  @ApiNotFoundResponse({ description: "Not found" })
   @ApiForbiddenResponse({ description: "Forbidden." })
   @ApiBadRequestResponse({ description: "Invalid request." })
   @ApiOkResponse({ description: "Successful request." })

@@ -17,6 +17,7 @@ import {
   ApiBearerAuth,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
@@ -37,6 +38,7 @@ export class SellerController {
   @ApiOperation({
     summary: "Get seller by it's id",
   })
+  @ApiNotFoundResponse({ description: "Not found" })
   @ApiForbiddenResponse({ description: "Forbidden." })
   @ApiBadRequestResponse({ description: "Invalid request." })
   @ApiOkResponse({ description: "Successful request." })
@@ -60,6 +62,7 @@ export class SellerController {
   @ApiOperation({
     summary: "Update Seller",
   })
+  @ApiNotFoundResponse({ description: "Not found" })
   @ApiForbiddenResponse({ description: "Forbidden." })
   @ApiBadRequestResponse({ description: "Invalid request." })
   @ApiOkResponse({ description: "Successful request." })
@@ -88,6 +91,7 @@ export class SellerController {
   @ApiOperation({
     summary: "Delete seller by id",
   })
+  @ApiNotFoundResponse({ description: "Not found" })
   @ApiForbiddenResponse({ description: "Forbidden." })
   @ApiBadRequestResponse({ description: "Invalid request." })
   @ApiOkResponse({ description: "Successful request." })

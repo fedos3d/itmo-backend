@@ -15,6 +15,7 @@ import {
   ApiBearerAuth,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
@@ -33,6 +34,7 @@ export class TransportController {
   @ApiOperation({
     summary: "Get transport by it's id",
   })
+  @ApiNotFoundResponse({ description: "Not found" })
   @ApiForbiddenResponse({ description: "Forbidden." })
   @ApiBadRequestResponse({ description: "Invalid request." })
   @ApiOkResponse({ description: "Successful request." })
@@ -74,6 +76,7 @@ export class TransportController {
   @ApiOperation({
     summary: "Delete transport by id",
   })
+  @ApiNotFoundResponse({ description: "Not found" })
   @ApiForbiddenResponse({ description: "Forbidden." })
   @ApiBadRequestResponse({ description: "Invalid request." })
   @ApiOkResponse({ description: "Successful request." })

@@ -19,6 +19,7 @@ import {
   ApiBearerAuth,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiQuery,
@@ -37,6 +38,7 @@ export class CarrierController {
   @ApiOperation({
     summary: "Get carrier by it's id",
   })
+  @ApiNotFoundResponse({ description: "Not found" })
   @ApiForbiddenResponse({ description: "Forbidden." })
   @ApiBadRequestResponse({ description: "Invalid request." })
   @ApiOkResponse({ description: "Successful request." })
@@ -48,6 +50,7 @@ export class CarrierController {
   @ApiOperation({
     summary: "Update Carrier",
   })
+  @ApiNotFoundResponse({ description: "Not found" })
   @ApiForbiddenResponse({ description: "Forbidden." })
   @ApiBadRequestResponse({ description: "Invalid request." })
   @ApiOkResponse({ description: "Successful request." })
@@ -76,6 +79,7 @@ export class CarrierController {
   @ApiOperation({
     summary: "Delete carrier by id",
   })
+  @ApiNotFoundResponse({ description: "Not found" })
   @ApiForbiddenResponse({ description: "Forbidden." })
   @ApiBadRequestResponse({ description: "Invalid request." })
   @ApiOkResponse({ description: "Successful request." })
