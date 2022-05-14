@@ -19,5 +19,5 @@ export class Ticket {
   review?: Review[]
   carrierId: number
   sellerId: number
-  creation: Date
+  creationDate: Date
 }

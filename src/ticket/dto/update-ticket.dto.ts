@@ -9,7 +9,4 @@ export class UpdateTicketDto {
 
   @ApiProperty()
     price?: number
-
-  @ApiProperty()
-    creation?: Date
 }

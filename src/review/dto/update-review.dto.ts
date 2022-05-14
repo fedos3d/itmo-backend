@@ -8,7 +8,7 @@ export class UpdateReviewDto {
     content?: string
 
   @ApiProperty()
-    creationDate?: Date
+    userId?: number
 
   @ApiProperty()
     rating?: number

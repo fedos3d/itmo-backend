@@ -43,8 +43,7 @@ export class TicketsController {
   @ApiOkResponse({ description: 'Successful request.' })
   @Get(':id')
   async getTicket (@Param('id', ParseIntPipe) id: number): Promise<Ticket> {
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException()
+    return await this.ticketsService.getTicket({ id })
   }
 
   @ApiOperation({
@@ -58,8 +57,7 @@ export class TicketsController {
     @Param('id') id: number,
     @Body() ticket: UpdateTicketDto
   ): Promise<Ticket> {
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException()
+    return this.ticketsService.updateTicket({ id }, ticket)
   }
 
   @ApiOperation({
@@ -73,8 +71,8 @@ export class TicketsController {
   @ApiOkResponse({ description: 'Successful request.' })
   @Post()
   async addTicket (@Body() Ticket: CreateTicketDto): Promise<Ticket> {
-    // return await this.profileService.follow(email, username);
-    throw new NotImplementedException()
+    // return await this.ticketsService.addTicket(Ticket);
+    throw new NotImplementedException() // TODO: Fix seller and transport relation in Ticket
   }
 
   @ApiOperation({
@@ -86,7 +84,6 @@ export class TicketsController {
   @Get()
   async GetAllTickets (): Promise<Ticket[]> {
     // TODO: add query params
-    // return await this.profileService.follow(email, username);
-    throw new NotImplementedException()
+    return await this.ticketsService.getAllTickets()
   }
 }

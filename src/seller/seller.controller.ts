@@ -43,8 +43,7 @@ export class SellerController {
   @ApiOkResponse({ description: 'Successful request.' })
   @Get(':id')
   async getSeller (@Param('id', ParseIntPipe) id: number): Promise<Seller> {
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException()
+    return await this.sellerService.getSellser({ id })
   }
 
   @ApiOperation({
@@ -54,10 +53,9 @@ export class SellerController {
   @ApiBadRequestResponse({ description: 'Invalid request.' })
   @ApiOkResponse({ description: 'Successful request.' })
   @Get()
-  async getAllSellers (): Promise<Seller> {
+  async getAllSellers (): Promise<Seller[]> {
     // TODO: add query params
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException()
+    return await this.sellerService.getAllSellers()
   }
 
   @ApiOperation({
@@ -67,9 +65,11 @@ export class SellerController {
   @ApiBadRequestResponse({ description: 'Invalid request.' })
   @ApiOkResponse({ description: 'Successful request.' })
   @Put(':id')
-  async updateSeller (@Body() seller: UpdateSellerDto): Promise<Seller> {
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException()
+  async updateSeller (
+    @Param('id', ParseIntPipe) id: number,
+    @Body() seller: UpdateSellerDto
+  ): Promise<Seller> {
+    return await this.sellerService.updateSellerr({ id }, seller)
   }
 
   @ApiOperation({
@@ -83,8 +83,7 @@ export class SellerController {
   @ApiOkResponse({ description: 'Successful request.' })
   @Post()
   async addSeller (@Body() Seller: CreateSellerDto): Promise<Seller> {
-    // return await this.profileService.follow(email, username);
-    throw new NotImplementedException()
+    return await this.sellerService.addSellser(Seller)
   }
 
   @ApiOperation({
@@ -95,7 +94,6 @@ export class SellerController {
   @ApiOkResponse({ description: 'Successful request.' })
   @Delete(':id')
   async deleteSeller (@Param('id', ParseIntPipe) id: number): Promise<Seller> {
-    // return await this.profileService.follow(email, username);
-    throw new NotImplementedException()
+    return await this.sellerService.deleteSeller({ id })
   }
 }

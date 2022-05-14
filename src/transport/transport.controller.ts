@@ -41,8 +41,7 @@ export class TransportController {
   async getTransport (
     @Param('id', ParseIntPipe) id: number
   ): Promise<Transport> {
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException()
+    return await this.transportService.getTransport({ id })
   }
 
   @ApiOperation({
@@ -58,8 +57,7 @@ export class TransportController {
   async addTransport (
     @Body() Transport: CreateTransportDto
   ): Promise<Transport> {
-    // return await this.profileService.follow(email, username);
-    throw new NotImplementedException()
+    return await this.transportService.addTransport(Transport)
   }
 
   @ApiOperation({
@@ -71,8 +69,7 @@ export class TransportController {
   @Get()
   async getAllTransport (): Promise<Transport[]> {
     // TODO: add query params
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException()
+    return await this.transportService.getAllTransport()
   }
 
   @ApiOperation({
@@ -85,7 +82,6 @@ export class TransportController {
   async deleteTransport (
     @Param('id', ParseIntPipe) id: number
   ): Promise<Transport> {
-    // return await this.profileService.follow(email, username);
-    throw new NotImplementedException()
+    return await this.transportService.deleteTranposrt({ id })
   }
 }

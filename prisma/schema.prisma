@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+   provider = "prisma-client-js"
+   output = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -16,7 +17,7 @@ model User {
   email   String   @unique
   ticket Ticket[]
   password String
-  name    String?  @unique
+  name    String  @unique
   creationDate DateTime @default(dbgenerated("NOW()"))
 }
 
@@ -31,7 +32,7 @@ model Carrier {
   name          String
   supportEmail String
   ticket        Ticket[]
-  rating Float
+  rating Float @default(0.0)
 
 }
 
@@ -40,7 +41,7 @@ model Seller {
   name   String
   url    String
   ticket Ticket[]
-  rating Float
+  rating Float @default(0.0)
 }
 
 model Review {

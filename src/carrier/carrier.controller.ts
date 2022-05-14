@@ -20,9 +20,7 @@ import {
   ApiForbiddenResponse,
   ApiOkResponse,
   ApiOperation,
-  ApiParam,
   ApiQuery,
-  ApiResponse,
   ApiTags
 } from '@nestjs/swagger'
 import { CarrierService } from './carrier.service'
@@ -44,8 +42,46 @@ export class CarrierController {
   @ApiOkResponse({ description: 'Successful request.' })
   @Get(':id')
   async getCarrier (@Param('id', ParseIntPipe) id: number): Promise<Carrier> {
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException()
+    return await this.carrierService.getCarrier({ id })
+  }
+
+  @ApiOperation({
+    summary: 'Update Carrier'
+  })
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
+  @ApiBadRequestResponse({ description: 'Invalid request.' })
+  @ApiOkResponse({ description: 'Successful request.' })
+  @Put(':id')
+  async updateCarrier (
+    @Param('id', ParseIntPipe) id: number,
+    @Body() carrier: UpdateCarrierDto
+  ): Promise<Carrier> {
+    return this.carrierService.updateCarrier({ id }, carrier)
+  }
+
+  @ApiOperation({
+    summary: 'Add carrier'
+  })
+  @ApiCreatedResponse({
+    description: 'Carrier added.'
+  })
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
+  @ApiBadRequestResponse({ description: 'Invalid request.' })
+  @ApiOkResponse({ description: 'Successful request.' })
+  @Post()
+  async addCarrier (@Body() Carrier: CreateCarrierDto): Promise<Carrier> {
+    return await this.carrierService.createCarrier(Carrier)
+  }
+
+  @ApiOperation({
+    summary: 'Delete carrier by id'
+  })
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
+  @ApiBadRequestResponse({ description: 'Invalid request.' })
+  @ApiOkResponse({ description: 'Successful request.' })
+  @Delete(':id')
+  async deleteCarrier (@Param('id', ParseIntPipe) id: number): Promise<Carrier> {
+    return this.carrierService.deleteCarrier({ id })
   }
 
   @ApiOperation({
@@ -76,49 +112,7 @@ export class CarrierController {
     @Query('rating', ParseIntPipe) rating?: number
   ): Promise<Carrier[]> {
     // TODO: Add query params
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException()
-  }
-
-  @ApiOperation({
-    summary: 'Update Carrier'
-  })
-  @ApiForbiddenResponse({ description: 'Forbidden.' })
-  @ApiBadRequestResponse({ description: 'Invalid request.' })
-  @ApiOkResponse({ description: 'Successful request.' })
-  @Put(':id')
-  async updateCarrier (
-    @Param('id', ParseIntPipe) id: number,
-    @Body() carrier: UpdateCarrierDto
-  ): Promise<Carrier> {
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException()
-  }
-
-  @ApiOperation({
-    summary: 'Add carrier'
-  })
-  @ApiCreatedResponse({
-    description: 'Carrier added.'
-  })
-  @ApiForbiddenResponse({ description: 'Forbidden.' })
-  @ApiBadRequestResponse({ description: 'Invalid request.' })
-  @ApiOkResponse({ description: 'Successful request.' })
-  @Post()
-  async addCarrier (@Body() Carrier: CreateCarrierDto): Promise<Carrier> {
-    // return await this.profileService.follow(email, username);
-    throw new NotImplementedException()
-  }
-
-  @ApiOperation({
-    summary: 'Delete carrier by id'
-  })
-  @ApiForbiddenResponse({ description: 'Forbidden.' })
-  @ApiBadRequestResponse({ description: 'Invalid request.' })
-  @ApiOkResponse({ description: 'Successful request.' })
-  @Delete(':id')
-  async deleteCarrier (@Param('id') name: number): Promise<Carrier> {
-    // return await this.profileService.follow(email, username);
-    throw new NotImplementedException()
+    return this.carrierService.getAllCarriers()
+    // throw new NotImplementedException();
   }
 }

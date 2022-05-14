@@ -38,8 +38,7 @@ export class ReviewController {
   @ApiOkResponse({ description: 'Successful request.' })
   @Get(':id')
   async getReview (@Param('id', ParseIntPipe) id: number): Promise<Review> {
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException()
+    return await this.reviewService.getReview({ id })
   }
 
   @ApiOperation({
@@ -53,7 +52,7 @@ export class ReviewController {
   @ApiOkResponse({ description: 'Successful request.' })
   @Post()
   async addReview (@Body() Review: CreateReviewDto): Promise<Review> {
-    // return await this.profileService.follow(email, username);
+    // return await this.reviewService.addReview(Review); //TODO: Fix relation betweem review and ticket
     throw new NotImplementedException()
   }
 
@@ -65,8 +64,7 @@ export class ReviewController {
   @ApiOkResponse({ description: 'Successful request.' })
   @Delete(':id')
   async deleteReview (@Param('id', ParseIntPipe) id: number): Promise<Review> {
-    // return await this.profileService.follow(email, username);
-    throw new NotImplementedException()
+    return await this.reviewService.deleteReview({ id })
   }
 
   @ApiOperation({
@@ -78,7 +76,6 @@ export class ReviewController {
   @Get()
   async getReviews (): Promise<Review[]> {
     // TODO: add query params
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException()
+    return await this.reviewService.getAllReviews()
   }
 }
