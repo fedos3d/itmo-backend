@@ -1,60 +1,60 @@
-import { Render, Controller, Get, UseInterceptors } from "@nestjs/common";
-import { AppService } from "./app.service";
-import { BackendResponseTimeInterceptor } from "./interceptor";
-import { ApiExcludeController } from "@nestjs/swagger";
+import { Render, Controller, Get, UseInterceptors } from '@nestjs/common'
+import { AppService } from './app.service'
+import { BackendResponseTimeInterceptor } from './interceptor'
+import { ApiExcludeController } from '@nestjs/swagger'
 
 @ApiExcludeController()
 @UseInterceptors(BackendResponseTimeInterceptor)
 @Controller()
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor (private readonly appService: AppService) {}
 
   @Get()
-  @Render("index")
-  root() {
-    return { title: "Аникеев Федор Николаевич" };
+  @Render('index')
+  root () {
+    return { title: 'Аникеев Федор Николаевич' }
   }
 
-  @Get("my_portfolio")
-  @Render("my_portfolio")
-  portfolio() {
-    return { title: "Мое портфолио" };
+  @Get('my_portfolio')
+  @Render('my_portfolio')
+  portfolio () {
+    return { title: 'Мое портфолио' }
   }
 
-  @Get("my_achievements")
-  @Render("my_achievements")
-  achiv() {
-    return { title: "Мои достижения" };
+  @Get('my_achievements')
+  @Render('my_achievements')
+  achiv () {
+    return { title: 'Мои достижения' }
   }
 
-  @Get("constructor")
-  @Render("constructor")
-  construct() {
-    return { title: "Конструктор" };
+  @Get('constructor')
+  @Render('constructor')
+  construct () {
+    return { title: 'Конструктор' }
   }
 
-  @Get("fetch")
-  @Render("fetch")
-  get() {
-    return { title: "Fetch API" };
+  @Get('fetch')
+  @Render('fetch')
+  get () {
+    return { title: 'Fetch API' }
   }
 
-  @Get("logged")
-  @Render("login")
-  logged() {
-    return { logged: true };
+  @Get('logged')
+  @Render('login')
+  logged () {
+    return { logged: true }
   }
 
-  @Get("notlogged")
-  @Render("login")
-  notlogged() {
-    return { logged: false };
+  @Get('notlogged')
+  @Render('login')
+  notlogged () {
+    return { logged: false }
   }
 
-  @Get("list_carrier")
-  @Render("carrier")
-  getcarrier() {
-    return { title: "list carrier" };
+  @Get('list_carrier')
+  @Render('carrier')
+  getcarrier () {
+    return { title: 'list carrier' }
   }
 }
