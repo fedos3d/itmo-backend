@@ -10,6 +10,7 @@ import {
   Query,
   ParseIntPipe,
   Put,
+  DefaultValuePipe,
 } from "@nestjs/common";
 import { Request } from "express";
 
@@ -28,7 +29,6 @@ import { Carrier } from "@prisma/client";
 import { CreateCarrierDto } from "./dto/create-carrier.dto";
 import { UpdateCarrierDto } from "./dto/update-carrier.dto";
 
-@ApiBearerAuth()
 @ApiTags("carrier")
 @Controller("carrier")
 export class CarrierController {
@@ -108,11 +108,14 @@ export class CarrierController {
   @Get()
   async getCarriers(
     @Query("name") name?: string,
-    @Query("supportEmail") supportEmail?: string,
-    @Query("rating", ParseIntPipe) rating?: number
+    @Query("supportEmail")
+    supportEmail?: string,
+    @Query("rating", ParseIntPipe)
+    rating?: number,
+    @Query("take", ParseIntPipe) take: number = 1,
+    @Query("skip", ParseIntPipe) skip: number = 0
   ): Promise<Carrier[]> {
     // TODO: Add query params
-    return this.carrierService.getAllCarriers();
-    // throw new NotImplementedException();
+    return this.carrierService.getAllCarriers(take, skip);
   }
 }

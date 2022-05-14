@@ -27,8 +27,11 @@ export class CarrierService {
     return user;
   }
 
-  async getAllCarriers(): Promise<Carrier[] | null> {
-    const user = this.dbService.carrier.findMany();
+  async getAllCarriers(
+    take: number = 10,
+    skip: number = 0
+  ): Promise<Carrier[] | null> {
+    const user = this.dbService.carrier.findMany({ skip: skip, take: take });
     return user;
   }
 
