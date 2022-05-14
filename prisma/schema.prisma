@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  name    String?
+  ticket Ticket[]
+}
+
+model Transport {
+  id     Int      @id @default(autoincrement())
+  name   String
+  ticket Ticket[]
+}
+
+model Carrier {
+  id            Int      @id @default(autoincrement())
+  name          String
+  supportEmail String
+  ticket        Ticket[]
+}
+
+model Seller {
+  id     Int      @id @default(autoincrement())
+  name   String
+  url    String
+  ticket Ticket[]
+}
+
+model Review {
+  id       Int    @id @default(autoincrement())
+  title    String
+  content  String
+  ticket   Ticket @relation(fields: [ticketId], references: [id])
+  ticketId Int
+  userId   Int
+}
+
+model Ticket {
+  id          Int       @id @default(autoincrement())
+  from        String
+  to          String
+  company     Carrier   @relation(fields: [carrierId], references: [id])
+  seller      Seller    @relation(fields: [sellerId], references: [id])
+  transport   Transport @relation(fields: [transportId], references: [id])
+  price       Float
+  user        User?     @relation(fields: [userId], references: [id])
+  userId      Int?
+  transportId Int
+  review      Review[]
+  carrierId   Int
+  sellerId    Int
+}
