@@ -1,155 +1,102 @@
-import { Get, Post, Delete, Param, Controller,  UseGuards, NotImplementedException, Body, Patch } from "@nestjs/common";
+import {
+  Get,
+  Post,
+  Delete,
+  Param,
+  Controller,
+  NotImplementedException,
+  Body,
+  Patch,
+  ParseIntPipe,
+  Put
+} from '@nestjs/common'
+import { Request } from 'express'
 
 import {
-  ApiBearerAuth, ApiOperation, ApiResponse, ApiTags
-} from "@nestjs/swagger";
-import { SellerService } from "./seller.service";
-import { Seller } from "@prisma/client"
-import { CreateSellerDto } from "./dto/create-seller.dto";
-import { FilterSellerDto } from "./dto/filter-seller.dto";
-import { UpdateSellerDto } from "./dto/update-seller.dto";
-import {AuthGuard} from "../auth/auth.guard";
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags
+} from '@nestjs/swagger'
+import { SellerService } from './seller.service'
+import { Seller } from '@prisma/client'
+import { CreateSellerDto } from './dto/create-seller.dto'
+import { FilterSellerDto } from './dto/filter-seller.dto'
+import { UpdateSellerDto } from './dto/update-seller.dto'
 
-
-@ApiBearerAuth()
 @ApiTags('seller')
 @Controller('seller')
 export class SellerController {
-
-  constructor(private readonly sellerService: SellerService) {}
+  constructor (private readonly sellerService: SellerService) {}
 
   @ApiOperation({
     summary: "Get seller by it's id"
   })
-  @ApiResponse({
-    status: 200,
-    description: 'Seller is found.'
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @ApiResponse({
-    status: 404,
-    description: 'Seller is not found.'
-  })
+  @ApiNotFoundResponse({ description: 'Not found' })
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
+  @ApiBadRequestResponse({ description: 'Invalid request.' })
+  @ApiOkResponse({ description: 'Successful request.' })
   @Get(':id')
-  async getSeller(@Param('id') id: string): Promise<Seller> {
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException();
+  async getSeller (@Param('id', ParseIntPipe) id: number): Promise<Seller> {
+    return await this.sellerService.getSellser({ id })
   }
 
   @ApiOperation({
-    summary: "Get seller by it's name"
+    summary: 'Get all sellers'
   })
-  @ApiResponse({
-    status: 200,
-    description: 'Seller is found.'
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @ApiResponse({
-    status: 404,
-    description: 'Seller is not found.'
-  })
-  @Get('/byName/:name')
-  async getSellerByName(@Param('name') id: string): Promise<Seller> {
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException();
-  }
-
-
-  @ApiOperation({
-    summary: "Update Seller"
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Seller is found.'
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @ApiResponse({
-    status: 404,
-    description: 'Seller is not found.'
-  })
-  @Patch('/updateSeller')
-  async updateSeller(@Body() seller: UpdateSellerDto): Promise<Seller> {
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException();
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
+  @ApiBadRequestResponse({ description: 'Invalid request.' })
+  @ApiOkResponse({ description: 'Successful request.' })
+  @Get()
+  async getAllSellers (): Promise<Seller[]> {
+    // TODO: add query params
+    return await this.sellerService.getAllSellers()
   }
 
   @ApiOperation({
-    summary: "Get all Sellers"
+    summary: 'Update Seller'
   })
-  @ApiResponse({
-    status: 200,
-    description: 'Seller is found.'
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @Get('/getAllSellers')
-  @UseGuards(AuthGuard)
-  async getAllSellers(): Promise<Seller[]> {
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException();
+  @ApiNotFoundResponse({ description: 'Not found' })
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
+  @ApiBadRequestResponse({ description: 'Invalid request.' })
+  @ApiOkResponse({ description: 'Successful request.' })
+  @Put(':id')
+  async updateSeller (
+    @Param('id', ParseIntPipe) id: number,
+    @Body() seller: UpdateSellerDto
+  ): Promise<Seller> {
+    return await this.sellerService.updateSellerr({ id }, seller)
   }
 
   @ApiOperation({
-    summary: "Add seller"
+    summary: 'Add seller'
   })
-  @ApiResponse({
-    status: 200,
-    description: 'Seller is added.'
+  @ApiCreatedResponse({
+    description: 'Seller added.'
   })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @Post('addSeller')
-  async addSeller(@Body() Seller: CreateSellerDto): Promise<Seller> {
-    // return await this.profileService.follow(email, username);
-    throw new NotImplementedException();
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
+  @ApiBadRequestResponse({ description: 'Invalid request.' })
+  @ApiOkResponse({ description: 'Successful request.' })
+  @Post()
+  async addSeller (@Body() Seller: CreateSellerDto): Promise<Seller> {
+    return await this.sellerService.addSellser(Seller)
   }
 
   @ApiOperation({
-    summary: "Get sellers by rating"
+    summary: 'Delete seller by id'
   })
-  @ApiResponse({
-    status: 200,
-    description: 'Seller is found.'
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @Get('/getSellersByRating')
-  async getSellersByRating(@Body() SellerFilter: FilterSellerDto): Promise<Seller[]> {
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException();
+  @ApiNotFoundResponse({ description: 'Not found' })
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
+  @ApiBadRequestResponse({ description: 'Invalid request.' })
+  @ApiOkResponse({ description: 'Successful request.' })
+  @Delete(':id')
+  async deleteSeller (@Param('id', ParseIntPipe) id: number): Promise<Seller> {
+    return await this.sellerService.deleteSeller({ id })
   }
-
-  @ApiOperation({
-    summary: "Delete seller by id"
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'seller is deleted.'
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @Delete('/:id')
-  async deleteSeller(@Param('id') name: number): Promise<Seller> {
-    // return await this.profileService.follow(email, username);
-    throw new NotImplementedException();
-  }
-
-
 }

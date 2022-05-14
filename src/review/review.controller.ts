@@ -1,92 +1,83 @@
-import { Get, Post, Delete, Param, Controller, NotImplementedException, Body, ParseIntPipe } from "@nestjs/common";
-
+import {
+  Get,
+  Post,
+  Delete,
+  Param,
+  Controller,
+  NotImplementedException,
+  Body,
+  ParseIntPipe
+} from '@nestjs/common'
 
 import {
-  ApiBearerAuth, ApiOperation, ApiResponse, ApiTags
-} from "@nestjs/swagger";
-import { ReviewService } from "./review.service";
-import { Review } from "@prisma/client"
-import { CreateReviewDto } from "./dto/create-review.dto";
-import { FilterReviewDto } from "./dto/filter-review.dto";
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiResponse,
+  ApiTags
+} from '@nestjs/swagger'
+import { ReviewService } from './review.service'
+import { Review } from '@prisma/client'
+import { CreateReviewDto } from './dto/create-review.dto'
+import { FilterReviewDto } from './dto/filter-review.dto'
 
-
-
-@ApiBearerAuth()
 @ApiTags('review')
 @Controller('review')
 export class ReviewController {
-
-  constructor(private readonly reviewService: ReviewService) {}
+  constructor (private readonly reviewService: ReviewService) {}
 
   @ApiOperation({
     summary: "Get Review by it's id"
   })
-  @ApiResponse({
-    status: 200,
-    description: 'Review is found.'
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @ApiResponse({
-    status: 404,
-    description: 'Review is not found.'
-  })
+  @ApiNotFoundResponse({ description: 'Not found' })
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
+  @ApiBadRequestResponse({ description: 'Invalid request.' })
+  @ApiOkResponse({ description: 'Successful request.' })
   @Get(':id')
-  async getReview(@Param('id', ParseIntPipe) id: number): Promise<Review> {
-    return this.reviewService.getReview({id: id});
-    // throw new NotImplementedException();
+  async getReview (@Param('id', ParseIntPipe) id: number): Promise<Review> {
+    return await this.reviewService.getReview({ id })
   }
 
   @ApiOperation({
-    summary: "Add Review"
+    summary: 'Add Review'
   })
-  @ApiResponse({
-    status: 200,
-    description: 'Review is added.'
+  @ApiCreatedResponse({
+    description: 'Review added.'
   })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @Post('addReview')
-  async addReview(@Body() Review: CreateReviewDto): Promise<Review> {
-    // return this.reviewService.addReview(Review);
-    throw new NotImplementedException();
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
+  @ApiBadRequestResponse({ description: 'Invalid request.' })
+  @ApiOkResponse({ description: 'Successful request.' })
+  @Post()
+  async addReview (@Body() Review: CreateReviewDto): Promise<Review> {
+    // return await this.reviewService.addReview(Review); //TODO: Fix relation betweem review and ticket
+    throw new NotImplementedException()
   }
 
   @ApiOperation({
-    summary: "Delete Review by id"
+    summary: 'Delete Review by id'
   })
-  @ApiResponse({
-    status: 200,
-    description: 'Review is deleted.'
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @Delete('/:id')
-  async deleteReview(@Param('id') name: number): Promise<Review> {
-    // return await this.profileService.follow(email, username);
-    throw new NotImplementedException();
+  @ApiNotFoundResponse({ description: 'Not found' })
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
+  @ApiBadRequestResponse({ description: 'Invalid request.' })
+  @ApiOkResponse({ description: 'Successful request.' })
+  @Delete(':id')
+  async deleteReview (@Param('id', ParseIntPipe) id: number): Promise<Review> {
+    return await this.reviewService.deleteReview({ id })
   }
 
   @ApiOperation({
-    summary: "Filter reviews"
+    summary: 'Get all reviews'
   })
-  @ApiResponse({
-    status: 200,
-    description: 'Review is found.'
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @Get('/filterReviews')
-  async filterReviews(@Body() filterReview: FilterReviewDto): Promise<Review[]> {
-    // return await this.profileService.findProfile(userId, username);
-    throw new NotImplementedException();
+  @ApiForbiddenResponse({ description: 'Forbidden.' })
+  @ApiBadRequestResponse({ description: 'Invalid request.' })
+  @ApiOkResponse({ description: 'Successful request.' })
+  @Get()
+  async getReviews (): Promise<Review[]> {
+    // TODO: add query params
+    return await this.reviewService.getAllReviews()
   }
 }

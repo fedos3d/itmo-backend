@@ -1,5 +1,16 @@
+import { ApiProperty } from '@nestjs/swagger'
+import { IsDefined, IsEmail, IsNotEmpty, IsString } from 'class-validator'
+
 export class CreateCarrierDto {
-  name: string;
-  supportEmail: string;
-  rating: number;
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  @IsDefined()
+    name: string
+
+  @ApiProperty()
+  @IsEmail()
+  @IsNotEmpty()
+  @IsDefined()
+    supportEmail: string
 }
