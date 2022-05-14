@@ -1,174 +1,128 @@
-import { Get, Post, Delete, Param, Controller, NotImplementedException, Body, Patch } from "@nestjs/common";
+import {
+  Get,
+  Post,
+  Delete,
+  Param,
+  Controller,
+  NotImplementedException,
+  Body,
+  ParseIntPipe,
+  Put,
+} from "@nestjs/common";
 import { UserService } from "./user.service";
-import { User, Ticket, Review } from "@prisma/client"
+import { User, Ticket, Review } from "@prisma/client";
 
 import {
-  ApiBearerAuth, ApiOperation, ApiParam, ApiResponse, ApiTags
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
 } from "@nestjs/swagger";
 import { CreateUserDto } from "./dto/create-user.dto";
-import { CreationTimeUserDto } from "./dto/creation-time-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 
 @ApiBearerAuth()
-@ApiTags('users')
-@Controller('users')
+@ApiTags("users")
+@Controller("users")
 export class UserController {
-
   constructor(private readonly profileService: UserService) {}
 
   @ApiOperation({
-    summary: "Get user by it's id"
+    summary: "Get user by it's id",
   })
-  @ApiParam({ name: 'id', type: 'number' })
-  @ApiResponse({
-    status: 200,
-    description: 'User is found.'
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @Get(':id')
-  async getUser(@Param('id') id: number): Promise<User> {
+  @ApiParam({ name: "id", type: "number" })
+  @ApiForbiddenResponse({ description: "Forbidden." })
+  @ApiBadRequestResponse({ description: "Invalid request." })
+  @ApiOkResponse({ description: "Successful request." })
+  @Get(":id")
+  async getUser(@Param("id", ParseIntPipe) id: number): Promise<User> {
     // return await this.profileService.findProfile(userId, username);
     throw new NotImplementedException();
   }
 
   @ApiOperation({
-    summary: "Add user"
+    summary: "Add user",
   })
-  @ApiResponse({
-    status: 200,
-    description: 'User is added, return id of a user.'
+  @ApiCreatedResponse({
+    description: "User added.",
   })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @Post('addUser')
+  @ApiForbiddenResponse({ description: "Forbidden." })
+  @ApiBadRequestResponse({ description: "Invalid request." })
+  @ApiOkResponse({ description: "Successful request." })
+  @Post()
   async addUser(@Body() User: CreateUserDto): Promise<User> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }
 
   @ApiOperation({
-    summary: "Get user by it's email"
+    summary: "Get all users",
   })
-  @ApiResponse({
-    status: 200,
-    description: 'User if found.'
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @Get('/byEmail/:email')
-  async getByEmail(@Param('email') email: string): Promise<User> {
+  @ApiForbiddenResponse({ description: "Forbidden." })
+  @ApiBadRequestResponse({ description: "Invalid request." })
+  @ApiOkResponse({ description: "Successful request." })
+  @Get()
+  async getALlUsers(): Promise<User> {
+    // TODO: add query params
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }
 
   @ApiOperation({
-    summary: "Get user by it's name"
+    summary: "Update user",
   })
-  @ApiResponse({
-    status: 200,
-    description: 'User if found.'
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @Get('/byName/:name')
-  async getByName(@Param('name') name: string): Promise<User> {
-    // return await this.profileService.follow(email, username);
-    throw new NotImplementedException();
-  }
-
-
-  @ApiOperation({
-    summary: "Get user by it's creationTime"
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'User if found.'
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @Get('/filterByCreationTime')
-  async filterByCreationTime(@Body() CreationTime: CreationTimeUserDto): Promise<User> {
+  @ApiForbiddenResponse({ description: "Forbidden." })
+  @ApiBadRequestResponse({ description: "Invalid request." })
+  @ApiOkResponse({ description: "Successful request." })
+  @Put(":id")
+  async updateUser(
+    @Param("id") id: number,
+    @Body() UpdateUser: UpdateUserDto
+  ): Promise<User> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }
 
   @ApiOperation({
-    summary: "Update user"
+    summary: "Delete user by it's id",
   })
-  @ApiResponse({
-    status: 200,
-    description: 'User if found.'
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @Patch('/updateUser')
-  async updateUser(@Body() UpdateUser: UpdateUserDto): Promise<User> {
-    // return await this.profileService.follow(email, username);
-    throw new NotImplementedException();
-  }
-
-
-
-  @ApiOperation({
-    summary: "Delete user by it's id"
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'User is removed.'
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @Delete(':id')
-  async deleteUser(@Param('id') id: string): Promise<User> {
+  @ApiForbiddenResponse({ description: "Forbidden." })
+  @ApiBadRequestResponse({ description: "Invalid request." })
+  @ApiOkResponse({ description: "Successful request." })
+  @Delete(":id")
+  async deleteUser(@Param("id", ParseIntPipe) id: number): Promise<User> {
     // return await this.profileService.unFollow(userId, username);
     throw new NotImplementedException();
   }
 
   @ApiOperation({
-    summary: "Get all tickets of a user"
+    summary: "Get all tickets of a user",
   })
-  @ApiResponse({
-    status: 200,
-    description: 'User if found.'
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @Get('/getAllTickets/:id')
-  async getAllTicketOfUser(@Param('id') id: number): Promise<Ticket[]> {
+  @ApiForbiddenResponse({ description: "Forbidden." })
+  @ApiBadRequestResponse({ description: "Invalid request." })
+  @ApiOkResponse({ description: "Successful request." })
+  @Get(":id/tickets")
+  async getAllTicketOfUser(
+    @Param("id", ParseIntPipe) id: number
+  ): Promise<Ticket[]> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }
 
   @ApiOperation({
-    summary: "Get all Reviews of a user"
+    summary: "Get all Reviews of a user",
   })
-  @ApiResponse({
-    status: 200,
-    description: 'User if found.'
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'Forbidden.'
-  })
-  @Get('/getAllUserReviews/:id')
-  async getAllReviewsOfUser(@Param('id') id: number): Promise<Review[]> {
+  @ApiForbiddenResponse({ description: "Forbidden." })
+  @ApiBadRequestResponse({ description: "Invalid request." })
+  @ApiOkResponse({ description: "Successful request." })
+  @Get(":id/reviews")
+  async getAllReviewsOfUser(
+    @Param("id", ParseIntPipe) id: number
+  ): Promise<Review[]> {
     // return await this.profileService.follow(email, username);
     throw new NotImplementedException();
   }

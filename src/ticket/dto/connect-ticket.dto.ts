@@ -1,5 +1,6 @@
+import { ApiProperty } from '@nestjs/swagger'
 
-  export class ConnectTicketDto {
-    id: number;
-  }
-  
+export class ConnectTicketDto {
+  @ApiProperty()
+    id: number
+}

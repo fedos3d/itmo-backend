@@ -16,7 +16,7 @@ model User {
   ticket Ticket[]
   password String
   name    String?  @unique
-  creationDate DateTime
+  creationDate DateTime @default(dbgenerated("NOW()"))
 }
 
 model Transport {
@@ -49,7 +49,7 @@ model Review {
   ticket   Ticket @relation(fields: [ticketId], references: [id])
   ticketId Int
   userId   Int
-  creationDate DateTime
+  creationDate DateTime @default(dbgenerated("NOW()"))
   rating Float
 }
 
@@ -67,5 +67,5 @@ model Ticket {
   review      Review[]
   carrierId   Int
   sellerId    Int
-  creation DateTime
+  creationDate DateTime @default(dbgenerated("NOW()"))
 }

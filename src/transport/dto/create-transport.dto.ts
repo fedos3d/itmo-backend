@@ -1,9 +1,6 @@
-
-
-
-
-
+import { ApiProperty } from '@nestjs/swagger'
 
 export class CreateTransportDto {
-  name: string;
+  @ApiProperty()
+    name: string
 }

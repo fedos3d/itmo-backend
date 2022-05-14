@@ -1,11 +1,12 @@
-
-
-
-
-
+import { ApiProperty } from '@nestjs/swagger'
 
 export class UpdateCarrierDto {
-  name?: string;
-supportEmail?: string;
-rating?: number;
+  @ApiProperty()
+    name?: string
+
+  @ApiProperty()
+    supportEmail?: string
+
+  @ApiProperty()
+    rating?: number
 }

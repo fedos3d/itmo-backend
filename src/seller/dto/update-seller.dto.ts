@@ -1,11 +1,12 @@
-
-
-
-
-
+import { ApiProperty } from '@nestjs/swagger'
 
 export class UpdateSellerDto {
-  name?: string;
-url?: string;
-rating?: number;
+  @ApiProperty()
+    name?: string
+
+  @ApiProperty()
+    url?: string
+
+  @ApiProperty()
+    rating?: number
 }

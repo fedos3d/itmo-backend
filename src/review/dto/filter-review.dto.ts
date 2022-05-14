@@ -1,9 +1,21 @@
+import { ApiProperty } from '@nestjs/swagger'
 
 export class FilterReviewDto {
-  title?: string;
-  content?: string;
-  rating?: string;
-  creationDateTime?: string;
-  userId?: number;
-  ticketId?: number;
+  @ApiProperty()
+    title?: string
+
+  @ApiProperty()
+    content?: string
+
+  @ApiProperty()
+    rating?: string
+
+  @ApiProperty()
+    creationDateTime?: string
+
+  @ApiProperty()
+    userId?: number
+
+  @ApiProperty()
+    ticketId?: number
 }
