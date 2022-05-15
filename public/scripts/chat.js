@@ -4,7 +4,7 @@ const message = document.getElementById("message");
 const messages = document.getElementById("messages");
 
 const handleSubmitNewMessage = () => {
-  console.log(message.value);
+  if (message.value instanceof String) return;
   if (message.value === "") {
     return;
   }
