@@ -14,7 +14,7 @@ header(class='myheader')
 		a(id="carrier", href="list_carrier?take=10&skip=0") carrier ендпоинт
 		| !{' '}
 		if user != null
-			a(class="nav_el" data-nav="nav" href="profile" id="profile") #{user.username}
+			a(class="nav_el" data-nav="nav" href="profile" id="profile") PUK #{user.name}
 			| !{' '}
 			a(class="nav_el" data-nav="nav" href="logout" id="logout") Logout
 		else
