@@ -1,0 +1,31 @@
+doctype html
+html
+    include ./head.pug
+    body
+    include ./header.pug
+    main
+            | <div id="template-result" class="">
+            | <template id="carriers-template">
+            |   <div class="comment">
+            |     <div class="container_lvl2 center">
+            |       <h2 id="carrier-name"></h2>
+            |     </div>
+            |     <div class="container_lvl2">
+            |       <div class="container_lvl3">
+            |         <h3>Описание</h3>
+            |         <p id="supportEmail">Support email: </p>
+            |       </div>
+            |     </div>
+            |     <div class="container_lvl2">
+            |       <div class="container_lvl3">
+            |         <p id="rating">Рейтинг: </p>
+            |         <p id="idshnik">id: </p>
+            |       </div>
+            |     </div>
+            |   </div>
+            | </template>
+    a(id="carrier_next", href="list_carrier") next
+    | <br>
+    a(id="carrier_prev", href="list_carrier") prev
+    include ./footer.pug
+    <script src="scripts/carriers.js"></script>

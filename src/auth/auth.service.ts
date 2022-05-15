@@ -1,56 +1,83 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
 import { JwtService } from "@nestjs/jwt";
+import { UserService } from "../user/user.service";
+import { AuthResponse } from "./auth.response";
+import { Request, Response } from "express";
 import * as bcrypt from "bcrypt";
-import {Prisma} from "@prisma/client";
-import {PrismaService} from "../prisma.service";
+import { PrismaService } from "../prisma.service";
+import { LoginUserDto } from "../user/dto/login-user.dto";
+import { CreateUserDto } from "../user/dto/create-user.dto";
 
 @Injectable()
 export class AuthService {
-  constructor(private jwtService: JwtService,
-              private prismaService: PrismaService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly userService: UserService,
+    private readonly dbService: PrismaService
+  ) {}
 
-  async validateUser(data: Prisma.UserWhereInput): Promise<any> {
-    const user = await this.prismaService.user.findFirst({
-      where: data
+  async login(dto: LoginUserDto, response: Response): Promise<AuthResponse> {
+    return this.dbService.user
+      .findFirst({ where: { name: dto.name } })
+      .then((user) => {
+        if (!user) {
+          throw new NotFoundException("Wrong username");
+        }
+
+        if (!bcrypt.compare(dto.password, user.password)) {
+          throw new BadRequestException("Wrong password");
+        }
+
+        const token = this.jwtService.sign({ name: dto.name });
+        response.cookie("auth_token", token);
+
+        return {
+          token,
+          user,
+        };
+      });
+  }
+
+  async register(
+    dto: CreateUserDto,
+    response: Response
+  ): Promise<AuthResponse> {
+    console.log("he he");
+    console.log(dto);
+    return this.userService.addUser(dto).then((user) => {
+      const token = this.jwtService.sign({ username: dto.name });
+      response.cookie("auth_token", token);
+
+      return {
+        token,
+        user,
+      };
     });
-    if (user && bcrypt.compare(user.password, await bcrypt.hash(data.password, parseInt(process.env.BCRYPT_ROUNDS)))) {
-      const { password, ...result } = user;
-      return result;
-    }
-    throw new UnauthorizedException({
-      message: "Неправильный логин или пароль",
-    });
   }
 
-  async login(data: Prisma.UserWhereInput, response) {
-    const payload = await this.validateUser(data);
-    response.cookie("authorization_token", this.jwtService.sign(payload));
+  async logout(response: Response) {
+    response.clearCookie("auth_token");
   }
 
-  async register(user: Prisma.UserCreateInput, response) {
-    const dbUser = await this.prismaService.user.findFirst({
-      where: {
-        name: user.name
-      }
-      }
-    );
-    if (dbUser) {
-      throw new UnauthorizedException("This username is already taken!");
-    }
-    const hashedPassword = await bcrypt.hash(user.password, parseInt(process.env.BCRYPT_ROUNDS));
-    const newUser = await this.prismaService.user.create({
-      data: {
-        name: user.name,
-        email: user.email,
-        password: hashedPassword,
-        creationDate: null
-      }
-    });
-    const { password, ...payload } = newUser;
-    response.cookie("authorization_token", this.jwtService.sign(payload));
-  }
-
-  logout(response) {
-    response.cookie("authorization_token", "");
-  }
+  // async updatePassword(dto: UserUpdateDto, request: Request) {
+  //   return this.userRepository.update(
+  //     {
+  //       id: await this.userRepository
+  //         .findOne({
+  //           where: {
+  //             username: this.jwtService.verify(request.cookies.auth_token)
+  //               .username,
+  //           },
+  //         })
+  //         .then((user) => user.id),
+  //     },
+  //     dto
+  //   );
+  // }
 }

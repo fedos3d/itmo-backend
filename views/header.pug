@@ -10,3 +10,14 @@ header(class='myheader')
 		a(id="constructor", href="constructor") Конструктор
 		| !{' '}
 		a(id="fetch", href="fetch") Fetch
+		| !{' '}
+		a(id="carrier", href="list_carrier?take=10&skip=0") carrier ендпоинт
+		| !{' '}
+		if user != null
+			a(class="nav_el" data-nav="nav" href="profile" id="profile") #{user.username}
+			| !{' '}
+			a(class="nav_el" data-nav="nav" href="logout" id="logout") Logout
+		else
+			a(class="nav_el" data-nav="nav" href="login" id="login") Login
+			| !{' '}
+			a(class="nav_el" data-nav="nav" href="register" id="register") Register

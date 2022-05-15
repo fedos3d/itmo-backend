@@ -1,12 +1,31 @@
-import { Render, Controller, Get, UseInterceptors } from "@nestjs/common";
+import {
+  Render,
+  Controller,
+  Get,
+  UseInterceptors,
+  Post,
+  Redirect,
+  Res,
+  Body,
+} from "@nestjs/common";
 import { AppService } from "./app.service";
 import { BackendResponseTimeInterceptor } from "./interceptor";
+import { ApiExcludeController } from "@nestjs/swagger";
+import { AuthResponse } from "./auth/auth.response";
+import { CreateUserDto } from "./user/dto/create-user.dto";
+import { AuthService } from "./auth/auth.service";
+import { LoginUserDto } from "./user/dto/login-user.dto";
+import { Request, Response } from "express";
 
+@ApiExcludeController()
 @UseInterceptors(BackendResponseTimeInterceptor)
 @Controller()
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly authSerivce: AuthService
+  ) {}
 
   @Get()
   @Render("index")
@@ -29,21 +48,15 @@ export class AppController {
   @Get("constructor")
   @Render("constructor")
   construct() {
-    return {
-      title: "Конструктор",
-      AdditionalHead: '<link href="constructor.css" rel="stylesheet">',
-      AdditionalFooter: '<script src="scripts/constructor.js"></script>',
-    };
+    return { title: "Конструктор" };
   }
 
   @Get("fetch")
   @Render("fetch")
   get() {
-    return {
-      title: "Fetch API",
-      AdditionalFooter: '<script src="scripts/fetch.js"></script>',
-    };
+    return { title: "Fetch API" };
   }
+
   @Get("logged")
   @Render("login")
   logged() {
@@ -56,9 +69,47 @@ export class AppController {
     return { logged: false };
   }
 
-  @Get("chat")
-  @Render("chat")
-  chat() {
-    return { title: "Chat" };
+  @Get("list_carrier")
+  @Render("carrier")
+  getcarrier() {
+    return { title: "list carrier" };
+  }
+
+  @Get("/login")
+  @Render("new_login")
+  getLoginPage() {
+    return {};
+  }
+
+  @Get("/register")
+  @Render("register")
+  getRegisterPage() {
+    return {};
+  }
+
+  @Post("login")
+  @Redirect("/")
+  async login(
+    @Body() dto: LoginUserDto,
+    @Res({ passthrough: true }) response: Response
+  ): Promise<AuthResponse> {
+    return this.authSerivce.login(dto, response);
+  }
+
+  @Post("register")
+  @Redirect("/login")
+  async register(
+    @Body() dto: CreateUserDto,
+    @Res({ passthrough: true }) response: Response
+  ): Promise<AuthResponse> {
+    console.log(dto);
+    console.log("he he");
+    return this.authSerivce.register(dto, response);
+  }
+
+  @Get("logout")
+  @Redirect("/login")
+  async logout(@Res({ passthrough: true }) response: Response) {
+    return this.authSerivce.logout(response);
   }
 }

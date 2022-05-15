@@ -1,10 +1,14 @@
-
-
-
-
-
+import { ApiProperty } from '@nestjs/swagger'
+import { IsEmail, IsOptional, IsString } from 'class-validator'
 
 export class UpdateCarrierDto {
-supportEmail?: string;
-rating?: number;
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+    name?: string
+
+  @ApiProperty()
+  @IsEmail()
+  @IsOptional()
+    supportEmail?: string
 }
