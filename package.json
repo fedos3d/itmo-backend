@@ -33,7 +33,7 @@
     "@nestjs/platform-socket.io": "^8.4.4",
     "@nestjs/swagger": "^5.2.1",
     "@nestjs/typeorm": "^8.0.3",
-    "@nestjs/websockets": "^8.4.4",
+    "@nestjs/websockets": "^8.4.5",
     "@prisma/client": "^3.12.0",
     "bcrypt": "^5.0.1",
     "express-session": "^1.17.2",

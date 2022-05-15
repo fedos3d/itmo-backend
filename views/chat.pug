@@ -1,0 +1,18 @@
+doctype html
+html
+    include ./head.pug
+    body
+    include ./header.pug
+    |  <section class="bg_2">
+    |    <h2 class="headline">Chat</h2>
+    |    <div class="chatMessages">
+    |    <div>
+    |       <ul id="messages"></ul>
+    |     </div>
+    |     <div>
+    |       <input type="text" id="message"/>
+    |       <button onclick="handleSubmitNewMessage()">Submit</button>
+    |     </div>
+    script(src='https://cdn.socket.io/4.3.2/socket.io.min.js' integrity='sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs' crossorigin='anonymous')
+    script(src='scripts/chat.js')
+    include ./footer.pug

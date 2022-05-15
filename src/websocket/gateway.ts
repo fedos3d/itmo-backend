@@ -7,16 +7,33 @@ import {
   OnGatewayDisconnect,
 } from "@nestjs/websockets";
 import { Socket, Server } from "socket.io";
+import { JwtService } from "@nestjs/jwt";
+import { MessageService } from "./websocket.service";
 
 @WebSocketGateway()
 export class Gateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
+  constructor(
+    private jwtService: JwtService,
+    private messageService: MessageService
+  ) {}
   @WebSocketServer() server: Server;
 
   @SubscribeMessage("message")
-  handleMessage(client: Socket, payload: string): void {
-    this.server.emit("message", payload);
+  async handleMessage(client: Socket, payload: any) {
+    const author =
+      payload.token === ""
+        ? "Anonymous"
+        : this.jwtService.verify(payload.token).name;
+    await this.messageService.save(author, payload.data, payload.date);
+
+    const answer = {
+      username: author,
+      data: payload.data,
+      date: payload.date,
+    };
+    this.server.emit("message", answer);
   }
 
   afterInit(server: Server): any {

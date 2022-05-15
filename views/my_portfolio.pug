@@ -1,7 +1,6 @@
 doctype html
 html
     include ./head.pug
-    | !{AdditionalHead}
     include ./header.pug
     body
         main
@@ -11,14 +10,4 @@ html
                 img(src='images/memes/img_2.png')
                 img(src='images/memes/img_3.png')
                 img(src='images/memes/img_4.png')
-        | <div>
-        |       <ul id="messages"></ul>
-        |     </div>
-        |     <div>
-        |       <input type="text" id="message"/>
-        |       <button onclick="handleSubmitNewMessage()">Submit</button>
-        |     </div>
-        script(src='https://cdn.socket.io/4.3.2/socket.io.min.js' integrity='sha384-KAZ4DtjNhLChOB/hxXuKqhMLYvx3b5MlT55xPEiNmREKRzeEm+RVPlTnAn0ajQNs' crossorigin='anonymous')
-        script(src='scripts/chat.js')
     include ./footer.pug
-    | !{AdditionalFooter}

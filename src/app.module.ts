@@ -10,6 +10,7 @@ import { CarrierModule } from "./carrier/carrier.module";
 import { ReviewModule } from "./review/review.module";
 import { AuthModule } from "./auth/auth.module";
 import { Gateway } from "./websocket/gateway";
+import { MessageModule } from "./websocket/websocket.module";
 
 @Module({
   controllers: [AppController],
@@ -22,6 +23,7 @@ import { Gateway } from "./websocket/gateway";
     CarrierModule,
     ReviewModule,
     AuthModule,
+    MessageModule,
   ],
 })
 export class AppModule {}

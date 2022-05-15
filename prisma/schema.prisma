@@ -73,3 +73,10 @@ model Ticket {
   sellerId    Int
   creation DateTime
 }
+
+model Message {
+    id          Int       @id @default(autoincrement())
+    author String
+    message String
+    date DateTime @default(dbgenerated("NOW()"))
+}
