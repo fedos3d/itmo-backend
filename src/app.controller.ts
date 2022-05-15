@@ -112,4 +112,10 @@ export class AppController {
   async logout(@Res({ passthrough: true }) response: Response) {
     return this.authSerivce.logout(response);
   }
+
+  @Get("chat")
+  @Render("chat")
+  chat() {
+    return { title: "Chat" };
+  }
 }
