@@ -1,9 +1,9 @@
 export class MessageEntity {
-  id: number;
+  id: number
 
-  author: string;
+  author: string
 
-  message: string;
+  message: string
 
-  date: string;
+  date: string
 }

@@ -1,9 +1,9 @@
-import { Module } from "@nestjs/common";
-import { MessageService } from "./websocket.service";
-import { PrismaService } from "../prisma.service";
+import { Module } from '@nestjs/common'
+import { WebSocketService } from './websocket.service'
+import { PrismaService } from '../prisma.service'
 
 @Module({
-  providers: [MessageService, PrismaService],
-  exports: [MessageService],
+  providers: [WebSocketService, PrismaService],
+  exports: [WebSocketService]
 })
-export class MessageModule {}
+export class WebSocketModule {}

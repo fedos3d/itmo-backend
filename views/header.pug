@@ -11,10 +11,12 @@ header(class='myheader')
 		| !{' '}
 		a(id="fetch", href="fetch") Fetch
 		| !{' '}
-		a(id="carrier", href="list_carrier?take=10&skip=0") carrier ендпоинт
+		a(id="carrier", href="list_carrier?take=10&skip=0") Фронтенд для API
+		| !{' '}
+		a(id="chat", href="chat") Чат на вебсокетах
 		| !{' '}
 		if user != null
-			a(class="nav_el" data-nav="nav" href="profile" id="profile") PUK #{user.name}
+			p Текущий пользователь: #{user.name}
 			| !{' '}
 			a(class="nav_el" data-nav="nav" href="logout" id="logout") Logout
 		else

@@ -4,48 +4,48 @@ import {
   OnGatewayInit,
   WebSocketServer,
   OnGatewayConnection,
-  OnGatewayDisconnect,
-} from "@nestjs/websockets";
-import { Socket, Server } from "socket.io";
-import { JwtService } from "@nestjs/jwt";
-import { MessageService } from "./websocket.service";
+  OnGatewayDisconnect
+} from '@nestjs/websockets'
+import { Socket, Server } from 'socket.io'
+import { JwtService } from '@nestjs/jwt'
+import { WebSocketService } from './websocket.service'
 
 @WebSocketGateway()
 export class Gateway
-  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
-{
-  constructor(
+implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+  constructor (
     private jwtService: JwtService,
-    private messageService: MessageService
+    private messageService: WebSocketService
   ) {}
-  @WebSocketServer() server: Server;
 
-  @SubscribeMessage("message")
-  async handleMessage(client: Socket, payload: any) {
-    console.log(payload);
+  @WebSocketServer() server: Server
+
+  @SubscribeMessage('message')
+  async handleMessage (client: Socket, payload: any) {
+    console.log(payload)
     const author =
-      payload.token === ""
-        ? "Anonymous"
-        : this.jwtService.verify(payload.token).name;
-    await this.messageService.save(author, payload.data, payload.date);
+      payload.token === ''
+        ? 'Anonymous'
+        : this.jwtService.verify(payload.token).name
+    await this.messageService.save(author, payload.data, payload.date)
 
     const answer = {
       username: author,
       data: payload.data,
-      date: payload.date,
-    };
-    this.server.emit("message", answer);
+      date: payload.date
+    }
+    this.server.emit('message', answer)
   }
 
-  afterInit(server: Server): any {
-    console.log("init");
+  afterInit (server: Server): any {
+    console.log('init')
   }
 
-  handleConnection(client: Socket, ...args: any[]): any {
-    console.log("client connected: " + client.id);
+  handleConnection (client: Socket, ...args: any[]): any {
+    console.log('client connected: ' + client.id)
   }
 
-  handleDisconnect(client: any): any {
-    console.log("client disconnected: " + client.id);
+  handleDisconnect (client: any): any {
+    console.log('client disconnected: ' + client.id)
   }
 }
