@@ -14,7 +14,10 @@ export class MessageService {
     message.message = data;
     message.date = date;
 
-    this.dbService.message.create({
+    console.log(author);
+    console.log(data);
+    console.log(date);
+    await this.dbService.message.create({
       data: {
         author: author,
         message: data,

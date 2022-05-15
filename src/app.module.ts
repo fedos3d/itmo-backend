@@ -10,10 +10,11 @@ import { CarrierModule } from "./carrier/carrier.module";
 import { ReviewModule } from "./review/review.module";
 import { AuthModule } from "./auth/auth.module";
 import { MessageModule } from "./websocket/websocket.module";
+import { Gateway } from "./websocket/gateway";
 
 @Module({
   controllers: [AppController],
-  providers: [AppService, PrismaService],
+  providers: [AppService, PrismaService, Gateway],
   imports: [
     TicketsModule,
     UserModule,

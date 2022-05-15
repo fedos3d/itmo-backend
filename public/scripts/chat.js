@@ -4,19 +4,42 @@ const message = document.getElementById("message");
 const messages = document.getElementById("messages");
 
 const handleSubmitNewMessage = () => {
-  socket.emit("message", { data: message.value });
+  console.log(message.value);
+  if (message.value === "") {
+    return;
+  }
+  const currentTime = Date.now();
+  const dateTime = new Date(currentTime);
+  socket.emit("message", {
+    token: document.cookie === "" ? "" : document.cookie.split("=")[1],
+    data: message.value,
+    date:
+      dateTime.getFullYear() +
+      "-" +
+      dateTime.getMonth() +
+      "-" +
+      dateTime.getDate() +
+      " " +
+      dateTime.getUTCHours() +
+      ":" +
+      dateTime.getUTCMinutes(),
+  });
 };
 
-socket.on("message", ({ data }) => {
-  handleNewMessage(data);
+socket.on("message", (answer) => {
+  handleNewMessage(answer);
 });
 
-handleNewMessage = (message) => {
-  messages.appendChild(buildNewMessage(message));
-};
+handleNewMessage = (answer) => {
+  const template = document.querySelector("#message-container").content;
+  const clone = template.cloneNode(true);
 
-const buildNewMessage = (message) => {
-  const li = document.createElement("li");
-  li.appendChild(document.createTextNode(message));
-  return li;
+  clone.querySelector("#p_user").innerHTML = answer.username;
+  clone.querySelector("#p_date").innerHTML = answer.date;
+  clone.querySelector("#p_message").innerHTML = answer.data;
+
+  const div = document.createElement("div");
+  div.appendChild(clone);
+
+  messages.appendChild(div);
 };

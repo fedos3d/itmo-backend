@@ -19,6 +19,7 @@ import { LoginUserDto } from "./user/dto/login-user.dto";
 import { Request, Response } from "express";
 import { AuthenticationInterceptor } from "./logging.intereptor";
 import { AuthGuard } from "./auth/auth.guard";
+import { MessageService } from "./websocket/websocket.service";
 
 @ApiExcludeController()
 @UseInterceptors(BackendResponseTimeInterceptor, AuthenticationInterceptor)
@@ -27,7 +28,8 @@ import { AuthGuard } from "./auth/auth.guard";
 export class AppController {
   constructor(
     private readonly appService: AppService,
-    private readonly authSerivce: AuthService
+    private readonly authSerivce: AuthService,
+    private readonly messageService: MessageService
   ) {}
 
   @Get()
@@ -120,7 +122,10 @@ export class AppController {
 
   @Get("chat")
   @Render("chat")
-  chat() {
-    return { title: "Chat" };
+  async chat() {
+    return {
+      title: "Chat",
+      messages: await this.messageService.getLastTwenty(),
+    };
   }
 }

@@ -22,6 +22,7 @@ export class Gateway
 
   @SubscribeMessage("message")
   async handleMessage(client: Socket, payload: any) {
+    console.log(payload);
     const author =
       payload.token === ""
         ? "Anonymous"
