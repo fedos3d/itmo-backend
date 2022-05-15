@@ -36,6 +36,7 @@ export class AuthService {
 
         const token = this.jwtService.sign({ name: dto.name });
         response.cookie("auth_token", token);
+        console.log(dto.name);
 
         return {
           token,
@@ -51,7 +52,7 @@ export class AuthService {
     console.log("he he");
     console.log(dto);
     return this.userService.addUser(dto).then((user) => {
-      const token = this.jwtService.sign({ username: dto.name });
+      const token = this.jwtService.sign({ name: dto.name });
       response.cookie("auth_token", token);
 
       return {

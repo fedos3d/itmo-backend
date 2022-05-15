@@ -8,6 +8,7 @@ import * as session from "express-session";
 import { ValidationPipe } from "@nestjs/common";
 import { NotFoundExceptionFilter } from "./filters/NotFound.filter";
 import { BadRequestExceptionFilter } from "./filters/BadRequest.filter";
+import { ForbiddenExceptionFilter } from "./filters/Forbbiden.filter";
 
 async function bootstrap() {
   const port = process.env.PORT || 3000;
@@ -28,7 +29,7 @@ async function bootstrap() {
 
   app.useGlobalFilters(
     new BadRequestExceptionFilter(),
-    // new ForbiddenExceptionFilter(),
+    new ForbiddenExceptionFilter(),
     new NotFoundExceptionFilter()
   );
 

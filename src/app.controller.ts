@@ -7,6 +7,7 @@ import {
   Redirect,
   Res,
   Body,
+  UseGuards,
 } from "@nestjs/common";
 import { AppService } from "./app.service";
 import { BackendResponseTimeInterceptor } from "./interceptor";
@@ -16,9 +17,11 @@ import { CreateUserDto } from "./user/dto/create-user.dto";
 import { AuthService } from "./auth/auth.service";
 import { LoginUserDto } from "./user/dto/login-user.dto";
 import { Request, Response } from "express";
+import { AuthenticationInterceptor } from "./logging.intereptor";
+import { AuthGuard } from "./auth/auth.guard";
 
 @ApiExcludeController()
-@UseInterceptors(BackendResponseTimeInterceptor)
+@UseInterceptors(BackendResponseTimeInterceptor, AuthenticationInterceptor)
 @Controller()
 @Controller()
 export class AppController {
@@ -69,6 +72,7 @@ export class AppController {
     return { logged: false };
   }
 
+  @UseGuards(AuthGuard)
   @Get("list_carrier")
   @Render("carrier")
   getcarrier() {
@@ -93,6 +97,7 @@ export class AppController {
     @Body() dto: LoginUserDto,
     @Res({ passthrough: true }) response: Response
   ): Promise<AuthResponse> {
+    console.log(dto);
     return this.authSerivce.login(dto, response);
   }
 
