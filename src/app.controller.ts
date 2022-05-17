@@ -125,7 +125,7 @@ export class AppController {
   async chat() {
     return {
       title: "Chat",
-      messages: await this.messageService.getLastTwenty(),
+      messages: await this.messageService.getMessages(),
     };
   }
 }

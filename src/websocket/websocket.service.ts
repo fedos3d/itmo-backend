@@ -22,7 +22,7 @@ export class WebSocketService {
     });
   }
 
-  async getLastTwenty() {
+  async getMessages() {
     return await this.dbService.message.findMany();
   }
 }
