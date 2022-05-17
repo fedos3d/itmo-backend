@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator'
-import { Ticket } from '@prisma/client'
+import { IsNotEmpty, IsNumber, IsString, Max, Min } from 'class-validator'
 
 export class CreateReviewDto {
   @ApiProperty()
@@ -19,9 +18,11 @@ export class CreateReviewDto {
 
   @ApiProperty()
   @IsNumber()
+  @Min(1)
+  @Max(10)
     rating: number
 
   @ApiProperty()
   @IsNumber()
-    ticket: Ticket
+    ticketId: number
 }

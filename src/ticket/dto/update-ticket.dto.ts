@@ -1,12 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { Min } from 'class-validator'
 
 export class UpdateTicketDto {
   @ApiProperty()
-    from?: string
-
-  @ApiProperty()
-    to?: string
-
-  @ApiProperty()
+  @Min(0)
     price?: number
 }

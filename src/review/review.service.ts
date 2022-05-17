@@ -1,68 +1,67 @@
 import {
   BadRequestException,
-  HttpException,
-  HttpStatus,
   Injectable,
-  NotFoundException
-} from '@nestjs/common'
-import { Carrier, Prisma, Review } from '@prisma/client'
-import { PrismaService } from '../prisma.service'
+  NotFoundException,
+} from "@nestjs/common";
+import { Prisma, Review } from "@prisma/client";
+import { PrismaService } from "../prisma.service";
+import { CreateReviewDto } from "./dto/create-review.dto";
 
 @Injectable()
 export class ReviewService {
-  constructor (private dbService: PrismaService) {}
+  constructor(private dbService: PrismaService) {}
 
-  async getReview (id: Prisma.ReviewWhereUniqueInput): Promise<Review | null> {
+  async getReview(id: Prisma.ReviewWhereUniqueInput): Promise<Review | null> {
     const review = await this.dbService.review.count({
-      where: id
-    })
+      where: id,
+    });
     if (review == 0) {
-      throw new NotFoundException('Carrier not found')
+      throw new NotFoundException("Carrier not found");
     }
     const user = this.dbService.review.findUnique({
-      where: id
-    })
-    return user
+      where: id,
+    });
+    return user;
   }
 
-  async addReview (data: Prisma.ReviewCreateInput): Promise<Review> {
-    if (!data.title || !data.content || !data.userId || !data.rating) {
-      throw new BadRequestException('All the parameters must be initialized')
+  async addReview(data: CreateReviewDto): Promise<Review> {
+    const checkUser = await this.dbService.user.count({
+      where: { id: data.userId },
+    });
+    if (checkUser == 0) {
+      throw new BadRequestException("User not found");
+    }
+    const checkTicket = await this.dbService.ticket.count({
+      where: { id: data.ticketId },
+    });
+    if (checkTicket == 0) {
+      throw new BadRequestException("Ticket not found");
     }
     return this.dbService.review.create({
-      data
-    })
+      data: {
+        title: data.title,
+        content: data.content,
+        rating: data.rating,
+        userId: data.userId,
+        ticket: { connect: { id: data.ticketId } },
+      },
+    });
   }
 
-  async deleteReview (id: Prisma.ReviewWhereUniqueInput): Promise<Review> {
+  async deleteReview(id: Prisma.ReviewWhereUniqueInput): Promise<Review> {
     const review = await this.dbService.review.count({
-      where: id
-    })
+      where: id,
+    });
     if (review == 0) {
-      throw new NotFoundException('Carrier not found')
+      throw new NotFoundException("Carrier not found");
     }
     return this.dbService.review.delete({
-      where: id
-    })
+      where: id,
+    });
   }
 
-  async getAllReviews (): Promise<Review[] | null> {
-    const user = this.dbService.review.findMany()
-    return user
+  async getAllReviews(): Promise<Review[] | null> {
+    const user = this.dbService.review.findMany();
+    return user;
   }
-
-  // async addReview(data: Prisma.ReviewCreateInput): Promise<Carrier> {
-  //   if (!data.title || !data.content || !data.creationDate || !data.) {
-  //     throw new HttpException(
-  //       {
-  //         status: HttpStatus.BAD_REQUEST,
-  //         error: 'All the parameters must be initialized',
-  //       },
-  //       HttpStatus.BAD_REQUEST,
-  //     );
-  //   }
-  //   return this.dbService.carrier.create({
-  //     data,
-  //   })
-  // }
 }
