@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
 import { Prisma, User } from "@prisma/client";
 
@@ -7,6 +11,20 @@ export class UserService {
   constructor(private dbService: PrismaService) {}
 
   async addUser(data: Prisma.UserCreateInput): Promise<User> {
+    const alreadyExists = await this.dbService.user.count({
+      where: { name: data.name },
+    });
+    if (alreadyExists != 0) {
+      throw new BadRequestException("User with such username already exists");
+    }
+    const alreadyExistsEmail = await this.dbService.user.count({
+      where: { email: data.email },
+    });
+    if (alreadyExistsEmail != 0) {
+      throw new BadRequestException(
+        "User with this email address already exists"
+      );
+    }
     return this.dbService.user.create({
       data,
     });

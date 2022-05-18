@@ -104,7 +104,7 @@ export class AppController {
   }
 
   @Post("register")
-  @Redirect("/login")
+  @Redirect("/")
   async register(
     @Body() dto: CreateUserDto,
     @Res({ passthrough: true }) response: Response
