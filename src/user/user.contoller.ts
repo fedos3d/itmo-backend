@@ -76,34 +76,4 @@ export class UserController {
   async deleteUser(@Param("id", ParseIntPipe) id: number): Promise<User> {
     return await this.userService.deleteUser({ id });
   }
-
-  // @ApiOperation({
-  //   summary: "Get all tickets of a user",
-  // })
-  // @ApiNotFoundResponse({ description: "Not found" })
-  // @ApiForbiddenResponse({ description: "Forbidden." })
-  // @ApiBadRequestResponse({ description: "Invalid request." })
-  // @ApiOkResponse({ description: "Successful request." })
-  // @Get(":id/tickets")
-  // async getAllTicketOfUser(
-  //   @Param("id", ParseIntPipe) id: number
-  // ): Promise<Ticket[]> {
-  //   // return await this.profileService.follow(email, username);
-  //   throw new NotImplementedException();
-  // }
-
-  // @ApiOperation({
-  //   summary: "Get all Reviews of a user",
-  // })
-  // @ApiNotFoundResponse({ description: "Not found" })
-  // @ApiForbiddenResponse({ description: "Forbidden." })
-  // @ApiBadRequestResponse({ description: "Invalid request." })
-  // @ApiOkResponse({ description: "Successful request." })
-  // @Get(":id/reviews")
-  // async getAllReviewsOfUser(
-  //   @Param("id", ParseIntPipe) id: number
-  // ): Promise<Review[]> {
-  //   // return await this.profileService.follow(email, username);
-  //   throw new NotImplementedException();
-  // }
 }
