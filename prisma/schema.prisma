@@ -13,8 +13,10 @@ datasource db {
 model User {
   id      Int      @id @default(autoincrement())
   email   String   @unique
-  name    String?
   ticket Ticket[]
+  password String
+  name    String?  @unique
+  creationDate DateTime @default(dbgenerated("NOW()"))
 }
 
 model Transport {
@@ -28,6 +30,8 @@ model Carrier {
   name          String
   supportEmail String
   ticket        Ticket[]
+  rating Float
+
 }
 
 model Seller {
@@ -35,6 +39,7 @@ model Seller {
   name   String
   url    String
   ticket Ticket[]
+  rating Float
 }
 
 model Review {
@@ -44,6 +49,8 @@ model Review {
   ticket   Ticket @relation(fields: [ticketId], references: [id])
   ticketId Int
   userId   Int
+  creationDate DateTime @default(dbgenerated("NOW()"))
+  rating Float
 }
 
 model Ticket {
@@ -60,4 +67,5 @@ model Ticket {
   review      Review[]
   carrierId   Int
   sellerId    Int
+  creationDate DateTime @default(dbgenerated("NOW()"))
 }
