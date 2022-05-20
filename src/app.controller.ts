@@ -20,6 +20,9 @@ import { Request, Response } from "express";
 import { AuthenticationInterceptor } from "./auth.intereptor";
 import { AuthGuard } from "./auth/auth.guard";
 import { WebSocketService } from "./websocket/websocket.service";
+import { CarrierService } from "./carrier/carrier.service";
+import { CreateCarrierDto } from "./carrier/dto/create-carrier.dto";
+import { Carrier } from "@prisma/client";
 
 @ApiExcludeController()
 @UseInterceptors(BackendResponseTimeInterceptor, AuthenticationInterceptor)
@@ -27,6 +30,7 @@ import { WebSocketService } from "./websocket/websocket.service";
 @Controller()
 export class AppController {
   constructor(
+    private readonly carrierSerivce: CarrierService,
     private readonly appService: AppService,
     private readonly authSerivce: AuthService,
     private readonly messageService: WebSocketService
@@ -127,5 +131,18 @@ export class AppController {
       title: "Chat",
       messages: await this.messageService.getMessages(),
     };
+  }
+
+  @Get("/add_carrier")
+  @Render("add_carrier")
+  getAddCarrier() {
+    return {};
+  }
+
+  @Post("add_carrier")
+  @Redirect("/add_carrier")
+  async addCarrier(@Body() dto: CreateCarrierDto): Promise<Carrier> {
+    console.log();
+    return this.carrierSerivce.createCarrier(dto);
   }
 }

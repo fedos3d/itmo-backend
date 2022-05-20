@@ -1,0 +1,19 @@
+doctype html
+html
+    include ./head.pug
+    body
+    include ./header.pug
+    |  <section class="bg_2">
+    |     <h2 class="headline">Login</h2>
+    |     <div class="constructor center login_container">
+    |       <div class="form_container">
+    |         <form action="add_carrier" method="post">
+    |           <input type="text" name="name" id="login_input" placeholder="name">
+    |           <input type="text" name="supportEmail" id="login_input" placeholder="SupportEmail">
+    |           <input type="submit" value="Add Carrier" id="login_btn" class="del">
+    |         </form>
+    |       </div>
+    |     </div>
+    |   </section>
+
+    include ./footer.pug
