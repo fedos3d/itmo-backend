@@ -1,24 +1,24 @@
-import { ApiProperty } from '@nestjs/swagger'
+import { ApiProperty } from "@nestjs/swagger";
 
 export class FilterTicketDto {
   @ApiProperty()
-    from: string
+  from: string;
 
   @ApiProperty()
-    to: string
+  to: string;
 
   @ApiProperty()
-    company: string
+  company: string;
 
   @ApiProperty()
-    seller: string
+  seller: string;
 
   @ApiProperty()
-    transport: string
+  transport: string;
 
   @ApiProperty()
-    priceStart: number
+  priceStart: number;
 
   @ApiProperty()
-    priceEnd: number
+  priceEnd: number;
 }

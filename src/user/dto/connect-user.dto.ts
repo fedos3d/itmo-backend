@@ -1,12 +1,12 @@
-import { ApiProperty } from '@nestjs/swagger'
+import { ApiProperty } from "@nestjs/swagger";
 
 export class ConnectUserDto {
   @ApiProperty()
-    id?: number
+  id?: number;
 
   @ApiProperty()
-    email?: string
+  email?: string;
 
   @ApiProperty()
-    name?: string
+  name?: string;
 }

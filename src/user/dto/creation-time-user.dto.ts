@@ -1,9 +1,9 @@
-import { ApiProperty } from '@nestjs/swagger'
+import { ApiProperty } from "@nestjs/swagger";
 
 export class CreationTimeUserDto {
   @ApiProperty()
-    from: Date
+  from: Date;
 
   @ApiProperty()
-    to: Date
+  to: Date;
 }

@@ -1,15 +1,15 @@
-import { ApiProperty } from '@nestjs/swagger'
-import { Max, Min } from 'class-validator'
+import { ApiProperty } from "@nestjs/swagger";
+import { Max, Min } from "class-validator";
 
 export class UpdateReviewDto {
   @ApiProperty()
-    title?: string
+  title?: string;
 
   @ApiProperty()
-    content?: string
+  content?: string;
 
   @ApiProperty()
   @Min(1)
   @Max(10)
-    rating?: number
+  rating?: number;
 }

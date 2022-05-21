@@ -1,7 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
 import { MessageEntity } from "./message.entity";
-import { Repository } from "typeorm";
 import { PrismaService } from "../prisma.service";
 
 @Injectable()

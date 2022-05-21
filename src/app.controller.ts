@@ -16,7 +16,7 @@ import { AuthResponse } from "./auth/auth.response";
 import { CreateUserDto } from "./user/dto/create-user.dto";
 import { AuthService } from "./auth/auth.service";
 import { LoginUserDto } from "./user/dto/login-user.dto";
-import { Request, Response } from "express";
+import { Response } from "express";
 import { AuthenticationInterceptor } from "./auth.intereptor";
 import { AuthGuard } from "./auth/auth.guard";
 import { WebSocketService } from "./websocket/websocket.service";
